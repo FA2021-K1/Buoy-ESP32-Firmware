@@ -2,9 +2,9 @@
  * Interface for the SD card
  * Provides functions and structs to initialize the sd card and upload data
  */
-#ifndef SDI_CARD_INTERFACE_H
-#define SDI_CARD_INTERFACE_H
+#ifndef SD_CARD_INTERFACE_H
+#define SD_CARD_INTERFACE_H
 
-
+void init_sd();
 
 #endif

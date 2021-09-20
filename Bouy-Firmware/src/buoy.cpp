@@ -1,11 +1,11 @@
 #include <memory>
 #include "buoy.h"
 
-std::shared_ptr<Buoy> Buoy::_buoy = nullptr;
+Buoy* Buoy::_buoy = nullptr;
 
-std::shared_ptr<Buoy> Buoy::getInstance() {
+Buoy* Buoy::getInstance() {
   if (Buoy::_buoy == nullptr) {
-      Buoy::_buoy = std::make_shared<Buoy>();
+      Buoy::_buoy = new Buoy(1234);
   }
   return Buoy::_buoy;
 }

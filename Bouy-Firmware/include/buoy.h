@@ -5,18 +5,17 @@
 #define BUOY_H
 
 #include <vector>
-#include <memory>
 
 class Buoy {
 protected:
   Buoy(unsigned int buoy_id);
   ~Buoy();
-  static std::shared_ptr<Buoy> _buoy;
+  static Buoy* _buoy;
 
 public:
   Buoy(Buoy &other) = delete;
   void operator=(const Buoy &other) = delete;
-  static std::shared_ptr<Buoy> getInstance();
+  static Buoy* getInstance();
 
   void attachSensor(unsigned int sensor_id);
   std::vector<unsigned int> getSensorIDs();

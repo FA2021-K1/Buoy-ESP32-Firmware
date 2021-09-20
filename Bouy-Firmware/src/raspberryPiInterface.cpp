@@ -9,13 +9,12 @@ static void UART_ISR_ROUTINE(void *pvParameters);
 
 void init_uart();
 
-RaspPi *RaspPi::pi_ = nullptr;
+RaspPi* RaspPi::pi_ = nullptr;
 
-RaspPi *RaspPi::getInstance()
+RaspPi* RaspPi::getInstance()
 {
-    if (RaspPi::pi_ == nullptr)
-    {
-        RaspPi::pi_ = new RaspPi();
+    if (RaspPi::pi_ == nullptr) {
+        pi_ = new RaspPi();
     }
     return RaspPi::pi_;
 }

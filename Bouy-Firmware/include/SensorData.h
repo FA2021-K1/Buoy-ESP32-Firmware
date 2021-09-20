@@ -10,7 +10,7 @@
 #include <utility>
 #include "buoy.h"
 
-typedef std::pair<unsigned int, unsigned int> Location;
+typedef std::pair<double, double> Location;
 
 class SensorData {
 public:

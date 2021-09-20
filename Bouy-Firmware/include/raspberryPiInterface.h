@@ -6,20 +6,31 @@
 #ifndef RASPBERRYPI_INTERFACE_H
 #define RASPBERRYPI_INTERFACE_H
 
-#include "stdbool.h"
 #include "driver/uart.h"
 
-struct RaspPi{
-    bool online;
-    bool turningOn;
-    uint8_t rxbuf[256];
-    uart_config_t *uart_config;
-    QueueHandle_t uart_queue;
+enum RASPPI_STATE{
+    ON,
+    OFF,
+    STARTING_UP,
+    SHUTTING_DOWN
 };
 
-void initRaspPi(struct RaspPi *pi);
-void deinitRaspPi(struct RaspPi *pi);
-void turnOnRaspPi(struct RaspPi *pi);
-void turnOffRaspPi(struct RaspPi *pi);
+class RaspPi{
+    protected:
+        RaspPi();
+        ~RaspPi();
+
+        static RaspPi* pi_;
+    public:
+        RaspPi(RaspPi &other) = delete;
+        void operator=(const RaspPi &other) = delete;
+
+        static RaspPi* getInstance();
+        
+        void turnOn();
+        void turnOff();
+    private:
+        RASPPI_STATE rasppi_state;
+};
 
 #endif

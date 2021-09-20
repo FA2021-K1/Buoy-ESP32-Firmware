@@ -10,9 +10,11 @@
 
 struct RaspPi{
     bool online;
-    bool requestedTurnOff;
+    bool turningOn;
 };
 
 void initRaspPi(struct RaspPi *pi);
+void turnOnRaspPi(struct RaspPi *pi);
+void turnOffRaspPi(struct RaspPi *pi);
 
 #endif

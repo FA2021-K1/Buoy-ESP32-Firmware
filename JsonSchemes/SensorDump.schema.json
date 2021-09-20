@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://ferienakademie.de/SensorDump.schema.json",
+    "title": "SensorDump",
+    "description": "A dump of all sensor data from one drone at one point in time",
+    "type": "object",
+    "properties": {
+        "bouyId": {
+            "description": "The unique identifier for the bouy",
+            "type": "integer"
+        },
+        "date": {
+            "description": "Timestamp when the measurements were taken; the format is ISO 8601",
+            "type": "string"
+        },
+        "location": {
+            "description": "Current position of the bouy",
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": "number",
+                    "minimum": -90,
+                    "maximum": 90
+                },
+                "longitude": {
+                    "type": "number",
+                    "minimum": -180,
+                    "maximum": 180
+                }          
+            }
+        },
+        "measurements": {
+            "description": "Array of all the measurements",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "sensorID": {
+                        "description": "The shared ID of the specific sensortype",
+                        "type": "integer"
+                    },
+                    "measurement": {
+                        "description": "The value retrieved from this sensor",
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}

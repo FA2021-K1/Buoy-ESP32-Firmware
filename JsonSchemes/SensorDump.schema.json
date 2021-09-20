@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://ferienakademie.de/SensorDump.schema.json",
     "title": "SensorDump",
-    "description": "A dump of all sensor data from one drone at one point in time",
+    "description": "A dump of all sensor data from one buoy at one point in time",
     "type": "object",
     "properties": {
         "bouyId": {

@@ -8,18 +8,20 @@
 #include <memory>
 #include <vector>
 #include <utility>
-#include "buoy.h"
 
+#include "value.h"
+
+typedef int JsonObject; // for the moment until we include some json lib
 typedef std::pair<double, double> Location;
 
 class SensorData {
 public:
   SensorData();
+  JsonObject toJson();
 private:
-  std::shared_ptr<Buoy> _buoy;
-  Location _location;
-  std::string _timestamp;
-  std::vector<unsigned int> _values;
+  Location location;
+  std::string timestamp;
+  std::vector<Value> values;
 };
 
 #endif

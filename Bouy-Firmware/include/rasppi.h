@@ -20,13 +20,14 @@ class RaspPi : public TransferData{
         RaspPi(RaspPi &other) = delete;
         void operator=(const RaspPi &other) = delete;
 
-        static RaspPi* getInstance();
-        
+        //METHODS
         void turnOn();
         void turnOff();
-        RaspPiStatus get_status();
+        void writeData(JsonObject obj) override;
 
-        void writeData(void);
+        //GETTER
+        static RaspPi* getInstance();
+        RaspPiStatus get_status();
     private:
         RaspPiStatus _rasppi_status;
 };

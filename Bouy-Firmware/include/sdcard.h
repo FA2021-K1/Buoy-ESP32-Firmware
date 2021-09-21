@@ -8,16 +8,19 @@
 #include <cstdint>
 
 class SDCard : public TransferData
-{
-    private:
-        uint32_t _capactiy;
-    
+{    
     public:
         SDCard(){}
         ~SDCard(){}
-        uint32_t get_capacity();
+
+        //METHODS
         void init();
-        void writeData(void);
+        void writeData(JsonObject obj) override;
+
+        //GETTERS
+        uint32_t get_capacity();
+    private:
+        uint32_t _capactiy;
 };
 
 #endif

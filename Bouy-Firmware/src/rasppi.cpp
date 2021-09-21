@@ -37,7 +37,7 @@ RaspPiStatus RaspPi::get_status(){
     return this->_rasppi_status;
 }
 
-void RaspPi::writeData(){
+void RaspPi::writeData(JsonObject obj){
     //TODO
 }
 

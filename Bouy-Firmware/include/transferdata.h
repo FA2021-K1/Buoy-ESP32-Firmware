@@ -1,6 +1,8 @@
 #ifndef TRANSFERDATA
 #define TRANSFERDATA
 
+typedef int JsonObject; // for the moment until we include some json lib
+
 class TransferData
 {
     protected:
@@ -8,7 +10,7 @@ class TransferData
     public:
         virtual ~TransferData() {}
 
-        virtual void writeData(void) = 0; 
+        virtual void writeData(JsonObject) = 0; 
 };
 
 

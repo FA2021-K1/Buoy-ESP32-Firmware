@@ -14,6 +14,8 @@ public:
 
   // METHODS
   virtual std::vector<Value> sampleValues() = 0;
+  void enable();
+  void disable();
 
   // GETTERS
   uint32_t get_sensor_id();

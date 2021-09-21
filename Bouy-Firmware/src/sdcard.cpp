@@ -35,6 +35,6 @@ void SDCard::init() {
   Serial.printf("SD Card Size: %lluMB\n", cardSize);
 }
 
-void SDCard::writeData(){
+void SDCard::writeData(JsonObject obj){
     //TODO
 }

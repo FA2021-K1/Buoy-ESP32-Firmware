@@ -7,14 +7,8 @@
 #define RASPBERRYPI_INTERFACE_H
 
 #include "transferdata.h"
+#include "global_enums.h"
 #include "driver/uart.h"
-
-enum RaspPiStatus{
-    ON,
-    OFF,
-    TURNING_ON,
-    TURNING_OFF
-};
 
 class RaspPi : public TransferData{
     protected:

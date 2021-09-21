@@ -6,4 +6,11 @@
 #ifndef BLUETOOTH_INTERFACE_H
 #define BLUETOOTH_INTERFACE_H
 
+class Bluetooth
+{
+    public:
+        Bluetooth();
+        ~Bluetooth();
+};
+
 #endif BLUETOOTH_INTERFACE_H

@@ -12,10 +12,6 @@ Buoy* Buoy::getInstance() {
 
 Buoy::Buoy(unsigned int buoyID) : _buoyID(buoyID) {}
 
-void Buoy::attachSensor(unsigned int sensor_id) {
-  _sensorIDs.push_back(sensor_id);
-}
-
-std::vector<unsigned int> Buoy::getSensorIDs() {
-  return _sensorIDs;
+void Buoy::attachSensor(Sensor *sensor) {
+  _sensors.push_back(sensor);
 }

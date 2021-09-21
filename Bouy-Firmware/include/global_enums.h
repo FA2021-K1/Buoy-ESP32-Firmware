@@ -1,3 +1,6 @@
+#ifndef GLOBAL_ENUMS
+#define GLOBAL_ENUMS
+
 enum SensorStatus {
   UP,
   DOWN,
@@ -16,3 +19,5 @@ enum RaspPiStatus {
   TURNING_ON,
   TURNING_OFF,
 }
+
+#endif

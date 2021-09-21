@@ -4,25 +4,26 @@
 #ifndef BUOY_H
 #define BUOY_H
 
+#include "sensor.h"
 #include <vector>
 
-class Buoy {
+class Buoy
+{
 protected:
   Buoy(unsigned int buoy_id);
   ~Buoy();
-  static Buoy* _buoy;
+  static Buoy *_buoy;
 
 public:
   Buoy(Buoy &other) = delete;
   void operator=(const Buoy &other) = delete;
-  static Buoy* getInstance();
+  static Buoy *getInstance();
 
-  void attachSensor(unsigned int sensor_id);
-  std::vector<unsigned int> getSensorIDs();
+  void attachSensor(Sensor *sensor);
 
 private:
   unsigned int _buoyID;
-  std::vector<unsigned int> _sensorIDs;
+  std::vector<Sensor *> _sensors;
 };
 
 #endif BUOY_H

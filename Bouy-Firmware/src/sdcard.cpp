@@ -1,8 +1,13 @@
-#include <SDCardInterface.h>
+#include <sdcard.h>
 #include <SD.h>
 #include <SPI.h> 
  
-void init_sd() {
+
+uint32_t SDCard::get_capacity(){
+    return this->_capactiy;
+}
+
+void SDCard::init() {
   if (!SD.begin()) {
       Serial.println("Card Mount Failed");
       return;
@@ -28,4 +33,8 @@ void init_sd() {
 
   uint64_t cardSize = SD.cardSize() / (1024 * 1024);
   Serial.printf("SD Card Size: %lluMB\n", cardSize);
+}
+
+void SDCard::writeData(){
+    //TODO
 }

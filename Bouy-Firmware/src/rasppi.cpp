@@ -1,5 +1,5 @@
 
-#include "raspberryPiInterface.h"
+#include "rasppi.h"
 #include "hardwareLayout.h"
 #include <Arduino.h>
 
@@ -9,19 +9,19 @@ static void UART_ISR_ROUTINE(void *pvParameters);
 
 void init_uart();
 
-RaspPi* RaspPi::pi_ = nullptr;
+RaspPi* RaspPi::_pi = nullptr;
 
 RaspPi* RaspPi::getInstance()
 {
-    if (RaspPi::pi_ == nullptr) {
-        pi_ = new RaspPi();
+    if (RaspPi::_pi == nullptr) {
+        _pi = new RaspPi();
     }
-    return RaspPi::pi_;
+    return RaspPi::_pi;
 }
 
 RaspPi::RaspPi()
 {
-    rasppi_state = RASPPI_STATE::OFF;
+    this->_rasppi_status = RaspPiStatus::OFF;
 
     pinMode(PI_RELAY_PIN, OUTPUT);
     digitalWrite(PI_RELAY_PIN, LOW);
@@ -33,15 +33,23 @@ RaspPi::~RaspPi()
 {
 }
 
+RaspPiStatus RaspPi::get_status(){
+    return this->_rasppi_status;
+}
+
+void RaspPi::writeData(){
+    //TODO
+}
+
 void RaspPi::turnOn()
 {
-    rasppi_state = RASPPI_STATE::STARTING_UP;
+    this->_rasppi_status = RaspPiStatus::TURNING_ON;
     digitalWrite(PI_RELAY_PIN, HIGH);
 }
 
 void RaspPi::turnOff()
 {
-    rasppi_state = RASPPI_STATE::SHUTTING_DOWN;
+    this->_rasppi_status = RaspPiStatus::TURNING_OFF;
     digitalWrite(PI_RELAY_PIN, LOW);
 }
 

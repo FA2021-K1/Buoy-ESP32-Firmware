@@ -6,21 +6,22 @@
 #ifndef RASPBERRYPI_INTERFACE_H
 #define RASPBERRYPI_INTERFACE_H
 
+#include "transferdata.h"
 #include "driver/uart.h"
 
-enum RASPPI_STATE{
+enum RaspPiStatus{
     ON,
     OFF,
-    STARTING_UP,
-    SHUTTING_DOWN
+    TURNING_ON,
+    TURNING_OFF
 };
 
-class RaspPi{
+class RaspPi : public TransferData{
     protected:
         RaspPi();
         ~RaspPi();
 
-        static RaspPi* pi_;
+        static RaspPi* _pi;
     public:
         RaspPi(RaspPi &other) = delete;
         void operator=(const RaspPi &other) = delete;
@@ -29,8 +30,11 @@ class RaspPi{
         
         void turnOn();
         void turnOff();
+        RaspPiStatus get_status();
+
+        void writeData(void);
     private:
-        RASPPI_STATE rasppi_state;
+        RaspPiStatus _rasppi_status;
 };
 
 #endif

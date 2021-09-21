@@ -18,6 +18,6 @@ enum RaspPiStatus {
   OFF,
   TURNING_ON,
   TURNING_OFF,
-}
+};
 
 #endif

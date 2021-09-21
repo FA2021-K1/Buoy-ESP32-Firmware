@@ -20,9 +20,6 @@ public:
   uint32_t get_type_id();
   SensorStatus get_status();
 
-  // SETTERS
-  void set_status(uint32_t status);
-
 private:
   uint32_t _sensor_id;
   uint32_t _type_id;

@@ -4,8 +4,7 @@
 #include "gpssensor.h"
 #include "datetime.h"
 
-void GPSSensor::init()
-{
+void GPSSensor::init() {
     Serial1.begin(9600, SERIAL_8N1, 12, 14, false, 64);
     // CFG-PRT
     byte packet[] = {
@@ -52,7 +51,7 @@ Location GPSSensor::getLocation()
 {
     int i = 1000;
     while (i > 0) {
-        while(!Serial1.available() > 0) {
+        while(!(Serial1.available() > 0)) {
             delay(1);
         }
         byte gpsData = Serial1.read();
@@ -80,7 +79,7 @@ Location GPSSensor::getLocation()
 
     hdop = tgps.hdop.value();
 
-    return std::pair<double,double>(tgps.location.lat(), tgps.location.lng());
+    return std::pair<double, double>(tgps.location.lat(), tgps.location.lng());
 }
 
 int32_t GPSSensor::gethdop()

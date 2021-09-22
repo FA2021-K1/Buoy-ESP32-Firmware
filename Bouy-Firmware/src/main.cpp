@@ -15,6 +15,7 @@
 #include "sensordata.h"
 #include "transferdata.h"
 #include "value.h"
+#include <raspicom/raspcommands.h>
 
 typedef std::pair<double, double> Location;
 
@@ -37,7 +38,11 @@ void loop() {
   test_values.emplace_back(333, 5444, -1.4);
   SensorData sensordata(manager.get_buoy(), location, timestamp, test_values);
   Serial.println(sensordata.toJsonString().c_str());
+  TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());
+  Serial.println(dumpCommand.toJsonString().c_str());
 
+  SyncCommand syncCommand = SyncCommand();
+  Serial.println(syncCommand.toJsonString().c_str());
   while (1) {}
   // put your main code here, to run repeatedly:
 }

@@ -1,6 +1,33 @@
 #include <raspicom/raspcommands.h>
 #include <ArduinoJson.h>
 
+RaspCommand* RaspCommand::fromJsonString(std::string json){
+  DynamicJsonDocument json_doc(1024);
+  deserializeJson(json_doc,json);
+
+  if(json_doc["cmd"] == "sync")
+    return new SyncCommand();
+  else if (json_doc["cmd"] == "ack")
+    return new AckCommand();
+  else if (json_doc["cmd"] == "shutdown")
+    return new ShutDownCommand();
+  else if (json_doc["cmd"] == "dump"){
+    std::string dump_string;
+    serializeJson(json_doc["data"], dump_string);
+    return new TransferDumpCommand(dump_string);
+  } else {
+    return new RaspCommand();
+  }  
+}
+
+std::string RaspCommand::toJsonString(){
+  DynamicJsonDocument json_doc(64);
+  JsonObject obj = json_doc.to<JsonObject>();
+  std::string json_string;
+  serializeJson(obj,json_string);
+  return json_string;
+}
+
 std::string SyncCommand::toJsonString(){
   DynamicJsonDocument json_doc(64);
   json_doc["cmd"] = "sync";

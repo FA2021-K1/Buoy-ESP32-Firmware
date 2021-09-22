@@ -43,6 +43,12 @@ void loop() {
 
   SyncCommand syncCommand = SyncCommand();
   Serial.println(syncCommand.toJsonString().c_str());
+
+  RaspCommand* command = RaspCommand::fromJsonString(dumpCommand.toJsonString().c_str());
+
+  Serial.println(command->toJsonString().c_str());
+
+
   while (1) {}
   // put your main code here, to run repeatedly:
 }

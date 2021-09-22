@@ -8,29 +8,28 @@ class RaspCommand
 {
 public:
     virtual std::string toJsonString();
-
-    static RaspCommand fromString(std::string json);
+    static RaspCommand* fromJsonString(std::string json);
 };
 
-class SyncCommand : RaspCommand
+class SyncCommand : public RaspCommand
 {
 public:
     std::string toJsonString() override;
 };
 
-class AckCommand : RaspCommand
+class AckCommand : public RaspCommand
 {
 public:
     std::string toJsonString() override;
 };
 
-class ShutDownCommand : RaspCommand
+class ShutDownCommand : public RaspCommand
 {
 public:
     std::string toJsonString() override;
 };
 
-class TransferDumpCommand : RaspCommand
+class TransferDumpCommand : public RaspCommand
 {
 public:
     TransferDumpCommand(std::string dump);

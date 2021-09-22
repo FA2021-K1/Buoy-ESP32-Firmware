@@ -7,6 +7,7 @@
 #include "global_enums.h"
 #include "gpssensor.h"
 #include "hardwareLayout.h"
+#include "manager.h"
 #include "rasppi.h"
 #include "sdcard.h"
 #include "sensor.h"
@@ -15,19 +16,28 @@
 #include "transferdata.h"
 #include "value.h"
 
-BuoyBLE ble;
+typedef std::pair<double, double> Location;
+
+Manager manager;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Serial.println("LEN= ");
-  ble.init();
+  Serial.println("Starting");
+  manager.create_objects();
 }
 
 void loop() {
-  Serial.println("hi");
-  delay(1000);
-  Serial.println(ble.getValue().c_str());
-  Serial.println(ble.getValue_bool());
+  // manager.run()
+  Location location(90.4, -30.7);
+  std::string timestamp = "11:33:14, 2021.01.01";
+  std::vector<Value> test_values;
+  Value val1(111, 222, 33.3);
+  test_values.push_back(val1);
+  test_values.emplace_back(333, 5444, -1.4);
+  SensorData sensordata(manager.get_buoy(), location, timestamp, test_values);
+  Serial.println(sensordata.toJsonString().c_str());
+
+  while (1) {}
   // put your main code here, to run repeatedly:
 }

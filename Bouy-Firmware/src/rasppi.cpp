@@ -26,7 +26,7 @@ RaspPiStatus RaspPi::get_status(){
     return this->_rasppi_status;
 }
 
-void RaspPi::writeData(std::string json_string){
+void RaspPi::writeData(std::string json_string, std::string filename) {
     //TODO
 }
 
@@ -119,3 +119,6 @@ static void UART_ISR_ROUTINE(void *pvParameters)
     //Out side of loop now. Task needs to clean up and self terminate before returning
     vTaskDelete(NULL);
 }
+
+
+std::string RaspPi::readData(std::string filename) {}

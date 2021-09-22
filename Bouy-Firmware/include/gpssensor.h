@@ -8,7 +8,8 @@
 
 #include <utility>
 #include <global_enums.h>
-
+#include <TinyGps++.h>
+#include "datetime.h"
 
 typedef std::pair<double,double> location_t;
 
@@ -19,9 +20,14 @@ class GPSSensor
         ~GPSSensor(){}
 
         location_t getLocation();
-        SensorStatus get_status();
+        GPSStatus get_status();
+        int32_t gethdop();
+        void init();
+        DateTime getDateTime();
     private:
-        SensorStatus _status;
+        int32_t hdop;
+        GPSStatus _status;
+        TinyGPSPlus tgps;
 };
 
 #endif

@@ -12,18 +12,19 @@
 
 #include "value.h"
 #include "buoy.h"
+#include "datetime.h"
 
 typedef std::pair<double, double> Location;
 
 class SensorData {
 public:
   SensorData(std::shared_ptr<Buoy> buoy, Location location,
-             std::string timestamp, std::vector<Value> values);
+             DateTime timestamp, std::vector<Value> values);
   std::string toJsonString();
 private:
   std::shared_ptr<Buoy> _buoy;
   Location _location;
-  std::string _timestamp;
+  DateTime _timestamp;
   std::vector<Value> _values;
 };
 

@@ -9,7 +9,7 @@
 typedef std::pair<double, double> Location;
 
 SensorData::SensorData(std::shared_ptr<Buoy> buoy, Location location,
-                       std::string timestamp, std::vector<Value> values) :
+                       DateTime timestamp, std::vector<Value> values) :
                        _buoy(buoy), _location(location), _timestamp(timestamp), _values(values) {}
 
 
@@ -18,6 +18,7 @@ std::string SensorData::toJsonString() {
   json_doc["buoyId"] = _buoy->get_buoy_id();
   json_doc["location"]["latitude"] = _location.first;
   json_doc["location"]["longitude"] = _location.second;
+  json_doc["date"] = _timestamp.to_iso();
   
   for (unsigned int index=0; index < _values.size(); index++) {
     json_doc["measurements"][index]["sensorID"] = _values[index].sensor_id;

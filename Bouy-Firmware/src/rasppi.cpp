@@ -31,13 +31,15 @@ void RaspPi::writeData(std::string json_string, std::string filename)
 {
     TransferDumpCommand dumpCommand = TransferDumpCommand(json_string);
     std::string json = dumpCommand.toJsonString();
-    uart_write_bytes(PI_UART, json.c_str(), json.length() + 1); //send string with null termination
+    json += "\n";
+    uart_write_bytes(PI_UART, json.c_str(), json.length()); //send string with null termination
 }
 
 void RaspPi::turnOn()
 {
     this->_rasppi_status = RaspPiStatus::TURNING_ON;
     digitalWrite(PI_RELAY_PIN, HIGH);
+    Serial.println("turning on wifi");
 }
 
 void RaspPi::turnOff()

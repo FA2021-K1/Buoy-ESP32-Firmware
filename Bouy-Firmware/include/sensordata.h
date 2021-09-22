@@ -19,7 +19,7 @@ class SensorData {
 public:
   SensorData();
   ~SensorData();
-  DynamicJsonDocument toJson();
+  char* toJsonString();
 private:
   Location location;
   std::string timestamp;

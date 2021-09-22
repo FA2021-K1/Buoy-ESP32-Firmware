@@ -10,7 +10,7 @@ class TransferData
     public:
         virtual ~TransferData() {}
 
-        virtual void writeData(DynamicJsonDocument obj) = 0; 
+        virtual void writeData(char* json_string) = 0; 
 };
 
 

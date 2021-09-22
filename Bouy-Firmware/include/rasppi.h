@@ -25,7 +25,7 @@ class RaspPi : public TransferData{
         // METHODS
         void turnOn();
         void turnOff();
-        virtual void writeData(DynamicJsonDocument obj) override;
+        virtual void writeData(char* json_string) override;
 
         // GETTERS
         static RaspPi* getInstance();

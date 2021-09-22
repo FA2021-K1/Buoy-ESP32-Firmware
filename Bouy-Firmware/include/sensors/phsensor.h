@@ -10,7 +10,8 @@
 class PHSensor : public AnalogSensor
 {
     public:
-
+        PHSensor();
+        ~PHSensor();
     private:
 };
 #endif

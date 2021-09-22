@@ -23,12 +23,13 @@
 Manager manager;
 
 void setup() {
-  // put your setup code here, to run once:
   Serial.begin(115200);
   manager.create_objects();
+  pinMode(26, OUTPUT);
+  digitalWrite(26, LOW);
 }
 
 void loop() {
   manager.execute();
-  delay(1000);
+  delay(5000);
 }

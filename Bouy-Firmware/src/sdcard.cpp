@@ -36,6 +36,6 @@ void SDCard::init() {
   Serial.printf("SD Card Size: %lluMB\n", cardSize);
 }
 
-void SDCard::writeData(DynamicJsonDocument obj){
+void SDCard::writeData(std::string json_string){
     //TODO
 }

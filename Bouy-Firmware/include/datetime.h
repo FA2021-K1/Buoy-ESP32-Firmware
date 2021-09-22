@@ -8,7 +8,6 @@
 
 class DateTime {
     public:
-        DateTime();
         DateTime(uint16_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
 
         uint16_t year;

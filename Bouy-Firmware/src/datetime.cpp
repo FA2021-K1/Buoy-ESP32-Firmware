@@ -2,7 +2,7 @@
 
 #include "datetime.h"
 
-DateTime::DateTime (uint16_t year_, uint8_t month_, uint8_t day_,
+DateTime::DateTime(uint16_t year_, uint8_t month_, uint8_t day_,
                     uint8_t hour_, uint8_t minute_, uint8_t second_,
                     uint8_t centisecond_) : year(year_), month(month_),
                     day(day_), hour(hour_), minute(minute_), second(second_),

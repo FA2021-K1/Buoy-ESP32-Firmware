@@ -1,6 +1,8 @@
-#include "gpssensor.h"
 #include <Arduino.h>
 #include <TinyGPS++.h>
+
+#include "gpssensor.h"
+#include "datetime.h"
 
 void GPSSensor::init()
 {
@@ -95,7 +97,7 @@ DateTime GPSSensor::getDateTime()
 {
     int i = 1000;
     while (i > 0) {
-        while(!Serial1.available() > 0) {
+        while (!Serial1.available() > 0) {
             delay(1);
         }
         byte gpsData = Serial1.read();
@@ -107,8 +109,7 @@ DateTime GPSSensor::getDateTime()
         i--;
     }
 
-    if (i == 0)
-    {
+    if (i == 0) {
         _status = NO_FIX;
         Serial.println("GPS: no fix!");
     }
@@ -117,16 +118,9 @@ DateTime GPSSensor::getDateTime()
         Serial.println("GPS: DateTime valid");
     }
 
-    DateTime dt;
-    dt.year = tgps.date.year();
-    dt.month = tgps.date.month();
-    dt.day = tgps.date.day();
-    dt.hour = tgps.time.hour() + 2; //GPS time is UTC
-    dt.minute = tgps.time.minute();
-    dt.second = tgps.time.second();
-    dt.centisecond = tgps.time.centisecond();
+    DateTime dt(tgps.date.year(), tgps.date.month(), tgps.date.day(),
+                tgps.time.hour() + 2, tgps.time.minute(),
+                tgps.time.second(), tgps.time.centisecond());
 
     return dt;
 }
-
-

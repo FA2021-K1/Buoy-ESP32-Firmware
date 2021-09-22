@@ -9,15 +9,16 @@
 #include <vector>
 #include <utility>
 
+#include "ArduinoJson.h"
+
 #include "value.h"
 
-typedef int JsonObject; // for the moment until we include some json lib
 typedef std::pair<double, double> Location;
 
 class SensorData {
 public:
   SensorData();
-  JsonObject toJson();
+  DynamicJsonDocument toJson();
 private:
   Location location;
   std::string timestamp;

@@ -1,7 +1,9 @@
+#include <Arduino.h>
+
+#include "ArduinoJson.h"
 
 #include "rasppi.h"
 #include "hardwareLayout.h"
-#include <Arduino.h>
 
 #define UART_BUF_SIZE 256
 static QueueHandle_t uart_queue;
@@ -37,7 +39,7 @@ RaspPiStatus RaspPi::get_status(){
     return this->_rasppi_status;
 }
 
-void RaspPi::writeData(JsonObject obj){
+void RaspPi::writeData(DynamicJsonDocument obj){
     //TODO
 }
 

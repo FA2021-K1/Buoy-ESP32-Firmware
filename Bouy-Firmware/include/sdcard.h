@@ -4,8 +4,12 @@
 #ifndef SD_CARD_INTERFACE_H
 #define SD_CARD_INTERFACE_H
 
-#include "transferdata.h"
 #include <cstdint>
+
+#include "ArduinoJson.h"
+
+#include "transferdata.h"
+
 
 class SDCard : public TransferData
 {    
@@ -15,7 +19,7 @@ class SDCard : public TransferData
 
         //METHODS
         void init();
-        void writeData(JsonObject obj) override;
+        virtual void writeData(DynamicJsonDocument obj) override;
 
         //GETTERS
         uint32_t get_capacity();

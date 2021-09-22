@@ -1,6 +1,7 @@
+#include "ArduinoJson.h"
+
 #include <sdcard.h>
 #include <SD.h>
-#include <SPI.h> 
  
 
 uint32_t SDCard::get_capacity(){
@@ -35,6 +36,6 @@ void SDCard::init() {
   Serial.printf("SD Card Size: %lluMB\n", cardSize);
 }
 
-void SDCard::writeData(JsonObject obj){
+void SDCard::writeData(DynamicJsonDocument obj){
     //TODO
 }

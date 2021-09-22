@@ -6,6 +6,8 @@
 #ifndef RASPBERRYPI_INTERFACE_H
 #define RASPBERRYPI_INTERFACE_H
 
+#include "ArduinoJson.h"
+
 #include "transferdata.h"
 #include "global_enums.h"
 #include "driver/uart.h"
@@ -23,7 +25,7 @@ class RaspPi : public TransferData{
         //METHODS
         void turnOn();
         void turnOff();
-        void writeData(JsonObject obj) override;
+        virtual void writeData(DynamicJsonDocument obj) override;
 
         //GETTER
         static RaspPi* getInstance();

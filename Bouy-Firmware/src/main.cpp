@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#include "ArduinoJson.h"
+
 #include "buoyble.h"
 #include "buoy.h"
 #include "global_enums.h"

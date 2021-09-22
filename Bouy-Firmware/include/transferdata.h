@@ -5,12 +5,10 @@
 
 class TransferData
 {
-    protected:
-        TransferData() {}
     public:
+        TransferData() {} 
         virtual ~TransferData() {}
-
-        virtual void writeData(char* json_string) = 0; 
+        virtual void writeData(std::string json_string) = 0; 
 };
 
 

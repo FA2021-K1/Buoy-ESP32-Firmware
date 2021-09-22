@@ -32,5 +32,5 @@ void Manager::execute() {
 
     vTaskDelay(10000 / portTICK_PERIOD_MS);
     TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
-    _rasppi->writeData(dumpCommand.toJsonString());
+    _rasppi->writeData(dumpCommand.toJsonString(), " ");
 }

@@ -29,6 +29,6 @@ void setup() {
 }
 
 void loop() {
-  manager.execute()
+  manager.execute();
   while (1) {}
 }

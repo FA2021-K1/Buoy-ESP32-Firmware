@@ -2,11 +2,7 @@
 
 #include <sdcard.h>
 #include <SD.h>
- 
 
-uint32_t SDCard::get_capacity(){
-    return this->_capactiy;
-}
 
 void SDCard::init() {
   if (!SD.begin()) {
@@ -37,5 +33,5 @@ void SDCard::init() {
 }
 
 void SDCard::writeData(std::string json_string){
-    //TODO
+    // TODO
 }

@@ -5,25 +5,26 @@
 #ifndef SENSOR_DATA_H
 #define SENSOR_DATA_H
 
-#include <memory>
 #include <vector>
-#include <utility>
+#include <memory>
 
 #include "ArduinoJson.h"
 
 #include "value.h"
+#include "buoy.h"
 
 typedef std::pair<double, double> Location;
 
 class SensorData {
 public:
-  SensorData();
-  ~SensorData();
-  char* toJsonString();
+  SensorData(std::shared_ptr<Buoy> buoy, Location location,
+             std::string timestamp, std::vector<Value> values);
+  std::string toJsonString();
 private:
-  Location location;
-  std::string timestamp;
-  std::vector<Value> values;
+  std::shared_ptr<Buoy> _buoy;
+  Location _location;
+  std::string _timestamp;
+  std::vector<Value> _values;
 };
 
 #endif

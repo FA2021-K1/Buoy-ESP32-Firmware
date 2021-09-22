@@ -18,6 +18,7 @@ typedef std::pair<double, double> Location;
 class SensorData {
 public:
   SensorData();
+  ~SensorData();
   DynamicJsonDocument toJson();
 private:
   Location location;

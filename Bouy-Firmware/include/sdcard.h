@@ -11,18 +11,18 @@
 #include "transferdata.h"
 
 
-class SDCard : public TransferData
-{    
+class SDCard : public TransferData {    
     public:
         SDCard(){}
         ~SDCard(){}
 
-        //METHODS
+        // METHODS
         void init();
         virtual void writeData(DynamicJsonDocument obj) override;
 
-        //GETTERS
+        // GETTERS
         uint32_t get_capacity();
+
     private:
         uint32_t _capactiy;
 };

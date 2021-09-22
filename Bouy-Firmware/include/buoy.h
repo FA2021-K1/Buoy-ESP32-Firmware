@@ -4,8 +4,10 @@
 #ifndef BUOY_H
 #define BUOY_H
 
-#include "sensor.h"
 #include <vector>
+
+#include "sensordata.h"
+#include "sensor.h"
 
 class Buoy
 {
@@ -20,6 +22,8 @@ public:
   static Buoy *getInstance();
 
   void attachSensor(Sensor *sensor);
+
+  SensorData sampleAllSensors();
 
 private:
   unsigned int _buoyID;

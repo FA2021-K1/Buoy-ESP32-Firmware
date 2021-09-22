@@ -22,12 +22,12 @@ class RaspPi : public TransferData{
         RaspPi(RaspPi &other) = delete;
         void operator=(const RaspPi &other) = delete;
 
-        //METHODS
+        // METHODS
         void turnOn();
         void turnOff();
         virtual void writeData(DynamicJsonDocument obj) override;
 
-        //GETTER
+        // GETTERS
         static RaspPi* getInstance();
         RaspPiStatus get_status();
     private:

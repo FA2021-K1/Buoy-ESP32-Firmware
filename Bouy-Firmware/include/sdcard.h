@@ -18,7 +18,7 @@ class SDCard : public TransferData {
 
         // METHODS
         void init();
-        virtual void writeData(char* json_string) override;
+        virtual void writeData(std::string json_string) override;
 
         // GETTERS
         uint32_t get_capacity();

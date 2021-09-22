@@ -1,7 +1,8 @@
+#include <SD.h>
+
 #include "ArduinoJson.h"
 
 #include <sdcard.h>
-#include <SD.h>
 
 
 void SDCard::init() {
@@ -17,7 +18,7 @@ void SDCard::init() {
   }
   Serial.println("SD card initializied successfully");
 
-  Serial.print("SD Card Type: ");
+  Serial.print("SD card Type: ");
   if (cardType == CARD_MMC) {
       Serial.println("MMC");
   } else if (cardType == CARD_SD) {
@@ -28,10 +29,10 @@ void SDCard::init() {
       Serial.println("UNKNOWN");
   }
 
-  uint64_t cardSize = SD.cardSize() / (1024 * 1024);
-  Serial.printf("SD Card Size: %lluMB\n", cardSize);
+  _capacity = SD.cardSize() / (1024 * 1024);
+  Serial.printf("SD card size %lu MB\n", static_cast<unsigned long>(_capacity));
 }
 
 void SDCard::writeData(std::string json_string){
-    // TODO
+  
 }

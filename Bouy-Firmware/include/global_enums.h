@@ -6,6 +6,11 @@ enum SensorStatus {
   DOWN,
 };
 
+enum GPSStatus {
+  VALID,
+  NO_FIX,
+};
+
 enum SensorType {
   TEMP,
   PH,

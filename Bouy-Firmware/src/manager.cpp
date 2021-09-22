@@ -10,6 +10,8 @@ void Manager::create_objects()
 {
     _buoy = std::make_shared<Buoy>(1234);
     _rasppi = std::make_shared<RaspPi>();
+    _sdcard = std::make_shared<SDCard>();
+    _sdcard->init();
 }
 
 void Manager::run()

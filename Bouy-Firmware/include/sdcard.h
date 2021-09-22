@@ -12,19 +12,16 @@
 
 
 class SDCard : public TransferData {
-    private:
-        uint32_t _capacity;
+public:
+    SDCard() {}
+    ~SDCard() {}
+    
+    void init();
+    virtual void writeData(std::string json_string) override;
 
-    public:
-        SDCard() {}
-        ~SDCard() {}
-
-        // METHODS
-        void init();
-        virtual void writeData(std::string json_string) override;
-
-        // GETTERS
-        uint32_t get_capacity() {return _capacity;}
+    uint32_t get_capacity() {return _capacity;}
+private:
+    uint32_t _capacity;
 };
 
 #endif

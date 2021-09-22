@@ -14,6 +14,8 @@ public:
   std::shared_ptr<Buoy> get_buoy() {return _buoy;}
   std::shared_ptr<RaspPi> get_rasppi() {return _rasppi;}
 
+  void run();
+
 private:
   std::shared_ptr<Buoy> _buoy;
   std::shared_ptr<RaspPi> _rasppi;

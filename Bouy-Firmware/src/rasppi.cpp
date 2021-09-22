@@ -1,9 +1,10 @@
 #include <Arduino.h>
 
-#include "ArduinoJson.h"
+#include <ArduinoJson.h>
 
-#include "rasppi.h"
-#include "hardwareLayout.h"
+#include <rasppi.h>
+#include <raspicom/raspcommands.h>
+#include <hardwareLayout.h>
 
 #define UART_BUF_SIZE (2048)
 static QueueHandle_t uart_queue;
@@ -28,7 +29,9 @@ RaspPiStatus RaspPi::get_status()
 
 void RaspPi::writeData(std::string json_string)
 {
-    //TODO
+    TransferDumpCommand dumpCommand = TransferDumpCommand(json_string);
+    std::string json = dumpCommand.toJsonString();
+    uart_write_bytes(PI_UART, json.c_str(), json.length() + 1); //send string with null termination
 }
 
 void RaspPi::turnOn()
@@ -57,10 +60,6 @@ void init_uart()
     ESP_ERROR_CHECK(uart_set_pin(PI_UART, U2TXD, U2RXD, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
 
     ESP_ERROR_CHECK(uart_driver_install(PI_UART, UART_BUF_SIZE, UART_BUF_SIZE, 20, &uart_queue, 0));
-
-    uart_enable_pattern_det_intr(PI_UART, '+', 2, 9, 0, 0);
-    //Reset the pattern queue length to record at most 20 pattern positions.
-    uart_pattern_queue_reset(PI_UART, 20);
 
     xTaskCreate(UART_ISR_ROUTINE, "UART_ISR_ROUTINE", 2048, NULL, 12, NULL);
 }

@@ -17,7 +17,6 @@
 #include "value.h"
 #include <raspicom/raspcommands.h>
 
-typedef std::pair<double, double> Location;
 
 Manager manager;
 
@@ -29,7 +28,7 @@ void setup() {
 }
 
 void loop() {
-  // manager.run()
+  manager.run();
   Location location(90.4, -30.7);
   std::string timestamp = "11:33:14, 2021.01.01";
   std::vector<Value> test_values;
@@ -44,10 +43,9 @@ void loop() {
   SyncCommand syncCommand = SyncCommand();
   Serial.println(syncCommand.toJsonString().c_str());
 
-  RaspCommand* command = RaspCommand::fromJsonString(dumpCommand.toJsonString().c_str());
+  RaspCommand* command = RaspCommand::fromJsonString("test12312312");
 
   Serial.println(command->toJsonString().c_str());
-
 
   while (1) {}
   // put your main code here, to run repeatedly:

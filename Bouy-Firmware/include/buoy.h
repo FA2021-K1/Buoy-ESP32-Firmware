@@ -5,6 +5,7 @@
 #define BUOY_H
 
 #include <vector>
+#include <memory>
 
 #include "sensor.h"
 
@@ -13,7 +14,7 @@ public:
   Buoy(unsigned int buoy_id);
   ~Buoy() = default;
 
-  void attachSensor(Sensor *sensor);
+  void attachSensor(std::shared_ptr<Sensor> sensor);
 
   unsigned int get_buoy_id() {return _buoyID;};
 
@@ -21,7 +22,7 @@ public:
 
 private:
   unsigned int _buoyID;
-  std::vector<Sensor *> _sensors;
+  std::vector<std::shared_ptr<Sensor>> _sensors;
 };
 
 #endif

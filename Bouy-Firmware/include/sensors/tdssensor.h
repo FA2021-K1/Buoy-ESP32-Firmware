@@ -5,17 +5,14 @@
  */
 #ifndef TDSSENSOR_H
 #define TDSSENSOR_H
-#include "analogsensor.h"
 
-class TDSSensor : public AnalogSensor
-{
-    public:
-        TDSSensor();
-        ~TDSSensor();
-        void set_pin(uint8_t sensor_input_pin);
-        uint32_t get_ppm_value();  
-    private:
-        uint8_t _sensor_input_pin;
-        float _ppm_value;
+#include <cstdint>
+
+class TDSSensor {
+public:
+    TDSSensor(uint8_t sensor_input_pin);
+    double get_ppm_value();  
+private:
+    uint8_t _sensor_input_pin;
 };
 #endif

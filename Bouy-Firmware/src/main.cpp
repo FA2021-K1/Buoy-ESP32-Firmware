@@ -30,5 +30,5 @@ void setup() {
 
 void loop() {
   manager.execute();
-  while (1) {}
+  delay(1000);
 }

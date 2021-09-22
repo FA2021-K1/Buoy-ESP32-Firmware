@@ -12,7 +12,7 @@ void Manager::create_objects()
 {
     _buoy = std::make_shared<Buoy>(1234);
     _tdssensor = std::make_shared<TDSSensor>(15);
-    _rasppi = std::make_shared<RaspPi>();
+    // _rasppi = std::make_shared<RaspPi>();
     _sdcard = std::make_shared<SDCard>();
     _gpssensor = std::make_shared<GPSSensor>();
     
@@ -28,9 +28,14 @@ void Manager::execute() {
     DateTime datetime = _gpssensor->getDateTime();
     std::vector<Value> values;
     values.emplace_back(2, 1, _tdssensor->get_ppm_value());
-    SensorData sensordata(_buoy, location, datetime.to_iso(), values);
+    SensorData sensordata(_buoy, location, datetime, values);
 
-    vTaskDelay(10000 / portTICK_PERIOD_MS);
-    TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
-    _rasppi->writeData(dumpCommand.toJsonString(), " ");
+    Serial.println(sensordata.toJsonString().c_str());
+
+    delay(1000);
+    _rasppi->turnOff();
+
+    // vTaskDelay(10000 / portTICK_PERIOD_MS);
+    // TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
+    // _rasppi->writeData(dumpCommand.toJsonString(), " ");
 }

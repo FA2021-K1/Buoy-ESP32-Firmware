@@ -1,13 +1,15 @@
 #include <memory>
 
-#include "manager.h"
 #include "buoy.h"
+#include "manager.h"
 #include "rasppi.h"
 #include "sensordata.h"
 #include "value.h"
 #include "sensors/analogsensor.h"
+#include "raspicom/raspcommands.h"
 
-void Manager::create_objects() {
+void Manager::create_objects()
+{
     _buoy = std::make_shared<Buoy>(1234);
     _tdssensor = std::make_shared<TDSSensor>(15);
     _rasppi = std::make_shared<RaspPi>();
@@ -19,7 +21,8 @@ void Manager::create_objects() {
 }
 
 void Manager::execute() {
-    // todo turn on relay
+    
+    _rasppi->turnOn();
 
     Location location = _gpssensor->getLocation();
     DateTime datetime = _gpssensor->getDateTime();
@@ -27,5 +30,7 @@ void Manager::execute() {
     values.emplace_back(2, 1, _tdssensor->get_ppm_value());
     SensorData sensordata(_buoy, location, datetime.to_iso(), values);
 
-    // todo send to raspy
+    vTaskDelay(10000 / portTICK_PERIOD_MS);
+    TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
+    _rasppi->writeData(dumpCommand.toJsonString());
 }

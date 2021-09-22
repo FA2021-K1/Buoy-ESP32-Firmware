@@ -25,4 +25,10 @@ enum RaspPiStatus {
   TURNING_OFF,
 };
 
+enum RaspPiCommandType {
+  SYNC,
+  SEND_DUMP,
+  ACK,
+  REQUEST_SHUTDOWN,
+};
 #endif

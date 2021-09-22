@@ -8,7 +8,7 @@
 #include "datetime.h"
 #include "global_enums.h"
 #include "gpssensor.h"
-#include "hardwareLayout.h"
+#include "hardwarelayout.h"
 #include "manager.h"
 #include "rasppi.h"
 #include "sdcard.h"
@@ -17,8 +17,8 @@
 #include "sensordata.h"
 #include "transferdata.h"
 #include "value.h"
+#include <raspicom/raspcommands.h>
 
-typedef std::pair<double, double> Location;
 
 Manager manager;
 

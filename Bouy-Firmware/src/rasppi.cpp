@@ -11,15 +11,6 @@ static void UART_ISR_ROUTINE(void *pvParameters);
 
 void init_uart();
 
-RaspPi* RaspPi::_pi = nullptr;
-
-RaspPi* RaspPi::getInstance()
-{
-    if (RaspPi::_pi == nullptr) {
-        _pi = new RaspPi();
-    }
-    return RaspPi::_pi;
-}
 
 RaspPi::RaspPi()
 {
@@ -31,15 +22,11 @@ RaspPi::RaspPi()
     init_uart();
 }
 
-RaspPi::~RaspPi()
-{
-}
-
 RaspPiStatus RaspPi::get_status(){
     return this->_rasppi_status;
 }
 
-void RaspPi::writeData(DynamicJsonDocument obj){
+void RaspPi::writeData(std::string json_string){
     //TODO
 }
 

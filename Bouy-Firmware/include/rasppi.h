@@ -12,23 +12,16 @@
 #include "global_enums.h"
 #include "driver/uart.h"
 
-class RaspPi : public TransferData{
-    protected:
-        RaspPi();
-        ~RaspPi();
-
-        static RaspPi* _pi;
+class RaspPi : public TransferData {
     public:
-        RaspPi(RaspPi &other) = delete;
-        void operator=(const RaspPi &other) = delete;
+        RaspPi();
 
         // METHODS
         void turnOn();
         void turnOff();
-        virtual void writeData(char* json_string) override;
+        virtual void writeData(std::string json_string) override;
 
         // GETTERS
-        static RaspPi* getInstance();
         RaspPiStatus get_status();
     private:
         RaspPiStatus _rasppi_status;

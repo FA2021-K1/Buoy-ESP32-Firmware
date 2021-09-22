@@ -6,24 +6,18 @@
 
 #include <vector>
 
-#include "sensordata.h"
 #include "sensor.h"
 
-class Buoy
-{
-protected:
-  Buoy(unsigned int buoy_id);
-  ~Buoy();
-  static Buoy *_buoy;
-
+class Buoy {
 public:
-  Buoy(Buoy &other) = delete;
-  void operator=(const Buoy &other) = delete;
-  static Buoy *getInstance();
+  Buoy(unsigned int buoy_id);
+  ~Buoy() = default;
 
   void attachSensor(Sensor *sensor);
 
-  SensorData sampleAllSensors();
+  unsigned int get_buoy_id() {return _buoyID;};
+
+  //  sampleAllSensors();
 
 private:
   unsigned int _buoyID;

@@ -26,4 +26,4 @@ private:
   std::vector<Sensor *> _sensors;
 };
 
-#endif BUOY_H
+#endif

@@ -11,7 +11,7 @@
 #include <TinyGps++.h>
 #include "datetime.h"
 
-typedef std::pair<double,double> location_t;
+typedef std::pair<double,double> Location;
 
 class GPSSensor
 {
@@ -19,7 +19,7 @@ class GPSSensor
         GPSSensor(){}
         ~GPSSensor(){}
 
-        location_t getLocation();
+        Location getLocation();
         GPSStatus get_status();
         int32_t gethdop();
         void init();

@@ -5,6 +5,7 @@
 
 #include "buoy.h"
 #include "rasppi.h"
+#include "sdcard.h"
 
 
 class Manager {
@@ -13,10 +14,11 @@ public:
   void create_objects();
   std::shared_ptr<Buoy> get_buoy() {return _buoy;}
   std::shared_ptr<RaspPi> get_rasppi() {return _rasppi;}
-
+  std::shared_ptr<SDCard> get_sdcard() {return _sdcard;}
 private:
   std::shared_ptr<Buoy> _buoy;
   std::shared_ptr<RaspPi> _rasppi;
+  std::shared_ptr<SDCard> _sdcard;
 };
 
 #endif

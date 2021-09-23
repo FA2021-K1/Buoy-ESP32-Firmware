@@ -22,12 +22,12 @@ public:
 
   void attachSensor(std::shared_ptr<Sensor> sensor);
 
-  unsigned int get_buoy_id() {return _buoyID;};
+  unsigned int get_buoy_id() {return _buoy_id;};
 
-  //  sampleAllSensors();
+  std::vector<Value> sampleAllSensors();
 
 private:
-  unsigned int _buoyID;
+  unsigned int _buoy_id;
   std::vector<std::shared_ptr<Sensor>> _sensors;
 };
 

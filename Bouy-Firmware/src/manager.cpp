@@ -8,19 +8,22 @@
 #include "sensors/analogsensor.h"
 #include "raspicom/raspcommands.h"
 #include "buoyble.h"
+#include "datetime.h"
 
 void Manager::create_objects()
 {
     _buoy = std::make_shared<Buoy>(1234);
-    _tdssensor = std::make_shared<TDSSensor>(15);
     // _rasppi = std::make_shared<RaspPi>();
-    _sdcard = std::make_shared<SDCard>();
-    _gpssensor = std::make_shared<GPSSensor>();
-    _buoyble = std::make_shared<BuoyBLE>();
+    // _sdcard = std::make_shared<SDCard>();
+    // _gpssensor = std::make_shared<GPSSensor>();
+    // _buoyble = std::make_shared<BuoyBLE>();
+
+    // attach sensors
+    _buoy->attachSensor(std::make_shared<TDSSensor>(123, 45));
     
-    _sdcard->init();
-    _gpssensor->init();
-    _buoyble->init();
+    // _sdcard->init();
+    // _gpssensor->init();
+    // _buoyble->init();
 }
 
 void Manager::execute() {
@@ -30,9 +33,8 @@ void Manager::execute() {
 
     Location location = _gpssensor->get_location();
     DateTime datetime = _gpssensor->get_datetime();
-    std::vector<Value> values;
-    values.emplace_back(2, 1, _tdssensor->get_ppm_value());
-    SensorData sensordata(_buoy, location, datetime, values);
+    auto all_values = _buoy->sampleAllSensors();
+    SensorData sensordata(_buoy, location, datetime, all_values);
 
     Serial.println(sensordata.toJsonString().c_str());
 

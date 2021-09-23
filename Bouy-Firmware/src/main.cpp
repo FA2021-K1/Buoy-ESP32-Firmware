@@ -25,11 +25,11 @@ Manager manager;
 void setup() {
   Serial.begin(115200);
   manager.create_objects();
-  pinMode(26, OUTPUT);
-  digitalWrite(26, LOW);
+  // pinMode(26, OUTPUT);
+  // digitalWrite(26, LOW);
 }
 
 void loop() {
   manager.execute();
-  delay(5000);
+  delay(1000);
 }

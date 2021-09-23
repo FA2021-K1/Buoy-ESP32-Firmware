@@ -3,9 +3,10 @@
 
 #include "gpssensor.h"
 #include "datetime.h"
+#include "hardwareLayout.h"
 
 void GPSSensor::init() {
-    Serial1.begin(9600, SERIAL_8N1, 12, 14, false, 64);
+    Serial1.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN, false, 64);
     // CFG-PRT
     byte packet[] = {
         0xB5, // sync char 1
@@ -44,7 +45,7 @@ void GPSSensor::init() {
     delay(100);
     Serial1.flush();
 
-    Serial1.begin(115200, SERIAL_8N1, 12, 14, false, 64);
+    Serial1.begin(115200, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN, false, 64);
 }
 
 Location GPSSensor::get_location()

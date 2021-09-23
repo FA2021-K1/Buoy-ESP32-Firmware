@@ -19,6 +19,9 @@ class GPSSensor
         GPSSensor(){}
         ~GPSSensor(){}
 
+        /**
+         * Change the baud-rate from default 9600 to 115200 to enable faster communication.
+         */
         void init();
 
         Location get_location();

@@ -7,6 +7,9 @@
 #include "value.h"
 #include "global_enums.h"
 
+/**
+ * Pure abstract class for all sensors except the GPS sensor.
+ */
 class Sensor {
 public:
   Sensor(uint32_t sensor_id, uint32_t type_id);

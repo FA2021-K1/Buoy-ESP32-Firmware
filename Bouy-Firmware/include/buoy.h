@@ -9,6 +9,12 @@
 
 #include "sensor.h"
 
+/**
+ * Interface for the buoy.
+ * 
+ * Each buoy has a unique ID in the fleet.
+ * Buoy owns the sensors and can sample data from them.
+ */
 class Buoy {
 public:
   Buoy(unsigned int buoy_id);

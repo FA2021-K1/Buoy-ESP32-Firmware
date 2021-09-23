@@ -5,7 +5,9 @@
 
 #include <cstdint>
 
-
+/**
+ * Dataclass for timestamps. 
+ */
 class DateTime {
     public:
         DateTime(uint16_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
@@ -18,8 +20,11 @@ class DateTime {
         uint8_t second;
         uint8_t centisecond;
 
+        /**
+         * Returns ISO-8601 formatted timestamp string (no centiseconds and timezone)
+         */
         std::string to_iso();
-        std::string to_filename();
+        // std::string to_filename();
 };
 
 #endif

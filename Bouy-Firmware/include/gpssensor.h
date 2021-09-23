@@ -9,9 +9,9 @@
 typedef std::pair<double,double> Location;
 
 /**
- * Interface for the GPS Module
- * Provides funcitons and structs to initialize the GPS Module
- * and retrieve data
+ * Interface for the GPS Module.
+ * 
+ * Provides functions to initialize the GPS Module and retrieve data.
  */
 class GPSSensor
 {

@@ -1,8 +1,3 @@
-/***
- * Interface for the Bluetooth module.
- * Provides functions and structs to initialize the bluetooth module
- * and register an interrupt routine on an incoming ping
- */
 #ifndef BLUETOOTH_INTERFACE_H
 #define BLUETOOTH_INTERFACE_H
 
@@ -11,6 +6,11 @@
 #include <BLEUtils.h>
 #include <string>
 
+/**
+ * Interface for the Bluetooth Low Energy (BLE) module.
+ * 
+ * Provides functions initialize the bluetooth module and read incoming data.
+ */
 class BuoyBLE
 {
     public:

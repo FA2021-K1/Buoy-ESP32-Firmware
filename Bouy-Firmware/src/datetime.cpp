@@ -17,11 +17,11 @@ std::string DateTime::to_iso() {
   return string_buffer;
 }
 
-std::string DateTime::to_filename() {
-  unsigned int string_length = 20;
-  char string_buffer[string_length];
-  snprintf(string_buffer, string_length, "%04u-%02u-%02u_%02u-%02u-%02u",
-          static_cast<uint>(year), static_cast<uint>(month), static_cast<uint>(day),
-          static_cast<uint>(hour), static_cast<uint>(minute), static_cast<uint>(second));
-  return string_buffer;
+// std::string DateTime::to_filename() {
+//   unsigned int string_length = 20;
+//   char string_buffer[string_length];
+//   snprintf(string_buffer, string_length, "%04u-%02u-%02u_%02u-%02u-%02u",
+//           static_cast<uint>(year), static_cast<uint>(month), static_cast<uint>(day),
+//           static_cast<uint>(hour), static_cast<uint>(minute), static_cast<uint>(second));
+//   return string_buffer;
 }

@@ -10,7 +10,9 @@
 
 #include "transferdata.h"
 
-
+/**
+ * Class that corresponds to the SDCard connected to the microcontroller.
+ */
 class SDCard : public TransferData {
 public:
     SDCard() {}

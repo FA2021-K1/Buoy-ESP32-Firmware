@@ -47,7 +47,7 @@ void GPSSensor::init() {
     Serial1.begin(115200, SERIAL_8N1, 12, 14, false, 64);
 }
 
-Location GPSSensor::getLocation()
+Location GPSSensor::get_location()
 {
     int i = 1000;
     while (i > 0) {
@@ -55,13 +55,13 @@ Location GPSSensor::getLocation()
             delay(1);
         }
         byte gpsData = Serial1.read();
-        tgps.encode(gpsData);
+        _tgps.encode(gpsData);
         Serial.write(gpsData);
-        if (tgps.location.isUpdated()){
+        if (_tgps.location.isUpdated()){
             Serial.print("Latitude= "); 
-            Serial.print(tgps.location.lat(), 6);
+            Serial.print(_tgps.location.lat(), 6);
             Serial.print(" Longitude= "); 
-            Serial.println(tgps.location.lng(), 6);
+            Serial.println(_tgps.location.lng(), 6);
             break;
         }
         i--;
@@ -77,14 +77,14 @@ Location GPSSensor::getLocation()
         Serial.println("GPS: position valid");
     }
 
-    hdop = tgps.hdop.value();
+    _hdop = _tgps.hdop.value();
 
-    return std::pair<double, double>(tgps.location.lat(), tgps.location.lng());
+    return std::pair<double, double>(_tgps.location.lat(), _tgps.location.lng());
 }
 
-int32_t GPSSensor::gethdop()
+int32_t GPSSensor::get_hdop()
 {
-    return hdop;
+    return _hdop;
 }
 
 GPSStatus GPSSensor::get_status()
@@ -92,7 +92,7 @@ GPSStatus GPSSensor::get_status()
     return _status;
 }
 
-DateTime GPSSensor::getDateTime()
+DateTime GPSSensor::get_datetime()
 {
     int i = 1000;
     while (i > 0) {
@@ -100,9 +100,9 @@ DateTime GPSSensor::getDateTime()
             delay(1);
         }
         byte gpsData = Serial1.read();
-        tgps.encode(gpsData);
+        _tgps.encode(gpsData);
         Serial.write(gpsData);
-        if (tgps.time.isUpdated() && tgps.date.isUpdated()){
+        if (_tgps.time.isUpdated() && _tgps.date.isUpdated()){
             break;
         }
         i--;
@@ -117,9 +117,9 @@ DateTime GPSSensor::getDateTime()
         Serial.println("GPS: DateTime valid");
     }
 
-    DateTime dt(tgps.date.year(), tgps.date.month(), tgps.date.day(),
-                tgps.time.hour() + 2, tgps.time.minute(),
-                tgps.time.second(), tgps.time.centisecond());
+    DateTime dt(_tgps.date.year(), _tgps.date.month(), _tgps.date.day(),
+                _tgps.time.hour() + 2, _tgps.time.minute(),
+                _tgps.time.second(), _tgps.time.centisecond());
 
     return dt;
 }

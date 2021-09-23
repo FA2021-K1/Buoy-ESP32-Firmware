@@ -1,8 +1,3 @@
-/***
- * Interface for the GPS Module
- * Provides funcitons and structs to initialize the GPS Module
- * and retrieve data
- */
 #ifndef GPSMODULE_H
 #define GPSMODULE_H
 
@@ -13,21 +8,28 @@
 
 typedef std::pair<double,double> Location;
 
+/**
+ * Interface for the GPS Module
+ * Provides funcitons and structs to initialize the GPS Module
+ * and retrieve data
+ */
 class GPSSensor
 {
     public:
         GPSSensor(){}
         ~GPSSensor(){}
 
-        Location getLocation();
-        GPSStatus get_status();
-        int32_t gethdop();
         void init();
-        DateTime getDateTime();
+
+        Location get_location();
+        GPSStatus get_status();
+        int32_t get_hdop();
+        DateTime get_datetime();
+
     private:
-        int32_t hdop;
+        int32_t _hdop;
         GPSStatus _status;
-        TinyGPSPlus tgps;
+        TinyGPSPlus _tgps;
 };
 
 #endif

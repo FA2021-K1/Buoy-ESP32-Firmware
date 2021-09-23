@@ -28,8 +28,8 @@ void Manager::execute() {
         delay(1000);
     }
 
-    Location location = _gpssensor->getLocation();
-    DateTime datetime = _gpssensor->getDateTime();
+    Location location = _gpssensor->get_location();
+    DateTime datetime = _gpssensor->get_datetime();
     std::vector<Value> values;
     values.emplace_back(2, 1, _tdssensor->get_ppm_value());
     SensorData sensordata(_buoy, location, datetime, values);

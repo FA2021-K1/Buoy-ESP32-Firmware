@@ -17,8 +17,8 @@ public:
     ~SDCard() {}
     
     void init();
-    virtual void writeData(std::string json_string, std::string filename) override;
-    virtual std::string readData(std::string filename) override;
+    virtual void writeData(std::string json_string) override;
+    virtual std::string readData() override;
 
     uint32_t get_capacity() {return _capacity;}
 private:

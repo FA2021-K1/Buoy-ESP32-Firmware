@@ -27,7 +27,7 @@ RaspPiStatus RaspPi::get_status()
     return this->_rasppi_status;
 }
 
-void RaspPi::writeData(std::string json_string, std::string filename)
+void RaspPi::writeData(std::string json_string)
 {
     TransferDumpCommand dumpCommand = TransferDumpCommand(json_string);
     std::string json = dumpCommand.toJsonString();
@@ -128,4 +128,4 @@ static void UART_ISR_ROUTINE(void *pvParameters)
 }
 
 
-std::string RaspPi::readData(std::string filename) {}
+std::string RaspPi::readData() {}

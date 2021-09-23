@@ -19,8 +19,8 @@ class RaspPi : public TransferData {
         // METHODS
         void turnOn();
         void turnOff();
-        virtual void writeData(std::string json_string, std::string filename) override;
-        virtual std::string readData(std::string filename) override;
+        virtual void writeData(std::string json_string) override;
+        virtual std::string readData() override;
 
         // GETTERS
         RaspPiStatus get_status();

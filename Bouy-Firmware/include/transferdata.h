@@ -3,12 +3,15 @@
 
 #include "ArduinoJson.h"
 
+/**
+ * Pure abstract class for all components that can send an receive data.
+ */
 class TransferData {
     public:
         TransferData() {} 
         virtual ~TransferData() {}
-        virtual void writeData(std::string json_string, std::string filename) = 0;
-        virtual std::string readData(std::string filename) = 0;
+        virtual void writeData(std::string json_string) = 0;
+        virtual std::string readData() = 0;
 };
 
 

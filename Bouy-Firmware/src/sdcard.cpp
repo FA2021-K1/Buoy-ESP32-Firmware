@@ -33,17 +33,21 @@ void SDCard::init() {
   Serial.printf("SD card size %lu MB\n", static_cast<unsigned long>(_capacity));
 }
 
-void SDCard::writeData(std::string json_string, std::string filename) {
-  File json_file = SD.open(filename.c_str(), FILE_WRITE);
-  Serial.printf("Writing to file ");
-  Serial.println(filename.c_str());
-  if (json_file) {
-    json_file.println(json_string.c_str());
-    json_file.close();
-    Serial.println("Writing done");
-  } else {
-    Serial.println("Error");
-  }
+void SDCard::writeData(std::string json_string) {
+// TODO UPDATE
+
+  // File json_file = SD.open(filename.c_str(), FILE_WRITE);
+  // Serial.printf("Writing to file ");
+  // Serial.println(filename.c_str());
+  // if (json_file) {
+  //   json_file.println(json_string.c_str());
+  //   json_file.close();
+  //   Serial.println("Writing done");
+  // } else {
+  //   Serial.println("Error");
+  // }
 }
 
-std::string SDCard::readData(std::string filename) {}
+std::string SDCard::readData() {
+  // TODO IMPLEMENT
+}

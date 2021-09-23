@@ -7,12 +7,14 @@
 #define TDSSENSOR_H
 
 #include <cstdint>
+#include <vector>
 
-class TDSSensor {
+#include "sensor.h"
+
+class TDSSensor : public Sensor {
 public:
-    TDSSensor(uint8_t sensor_input_pin);
-    double get_ppm_value();  
-private:
-    uint8_t _sensor_input_pin;
+    TDSSensor(uint32_t sensor_id, uint32_t type_id);
+    virtual ~TDSSensor() = default;
+    virtual std::vector<Value> sampleValues() override;
 };
 #endif

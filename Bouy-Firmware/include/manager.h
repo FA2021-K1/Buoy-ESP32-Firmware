@@ -32,7 +32,6 @@ private:
   std::shared_ptr<RaspPi> _rasppi;
   std::shared_ptr<SDCard> _sdcard;
   std::shared_ptr<GPSSensor> _gpssensor;
-  std::shared_ptr<TDSSensor> _tdssensor;
   std::shared_ptr<BuoyBLE> _buoyble;
 };
 

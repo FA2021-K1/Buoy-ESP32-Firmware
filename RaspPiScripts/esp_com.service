@@ -1,0 +1,9 @@
+[Unit]
+Description=Interaction with the ESP32
+
+[Service]
+Type=simple
+ExecStart=/buoy/scripts/esp_com.sh
+
+[Install]
+WantedBy=multi-user.target

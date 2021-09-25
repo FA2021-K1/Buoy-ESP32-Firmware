@@ -4,7 +4,7 @@
 
 #include <rasppi.h>
 #include <raspicom/raspcommands.h>
-#include <hardwareLayout.h>
+#include <hardwarelayout.h>
 
 #define UART_BUF_SIZE (2048)
 static QueueHandle_t uart_queue;

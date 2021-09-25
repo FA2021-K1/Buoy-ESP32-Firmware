@@ -6,7 +6,7 @@
 #include <TinyGps++.h>
 #include "datetime.h"
 
-typedef std::pair<double,double> Location;
+typedef std::pair<float, float> Location;
 
 /**
  * Interface for the GPS Module.

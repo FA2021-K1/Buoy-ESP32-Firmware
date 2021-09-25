@@ -1,4 +1,5 @@
 #include <memory>
+#include <cstdint>
 
 #include "ArduinoJson.h"
 
@@ -6,16 +7,16 @@
 #include "buoy.h"
 #include "sensordata.h"
 
-typedef std::pair<double, double> Location;
+typedef std::pair<float, float> Location;
 
-SensorData::SensorData(std::shared_ptr<Buoy> buoy, Location location,
+SensorData::SensorData(uint16_t buoy_id, Location location,
                        DateTime timestamp, std::vector<Value> values) :
-                       _buoy(buoy), _location(location), _timestamp(timestamp), _values(values) {}
+                       _buoy_id(buoy_id), _location(location), _timestamp(timestamp), _values(values) {}
 
 
 std::string SensorData::toJsonString() {
   DynamicJsonDocument json_doc(1000);
-  json_doc["buoyId"] = _buoy->get_buoy_id();
+  json_doc["buoyId"] = _buoy_id;
   json_doc["location"]["latitude"] = _location.first;
   json_doc["location"]["longitude"] = _location.second;
   json_doc["date"] = _timestamp.to_iso();
@@ -25,6 +26,7 @@ std::string SensorData::toJsonString() {
     json_doc["measurements"][index]["sensorType"] = _values[index].type_id;
     json_doc["measurements"][index]["measurement"] = _values[index].data;
   }
+
   std::string json_string;
   serializeJson(json_doc, json_string);
   return json_string;

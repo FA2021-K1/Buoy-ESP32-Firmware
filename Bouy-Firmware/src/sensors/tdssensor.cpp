@@ -4,7 +4,7 @@
 #include "Arduino.h"
 
 #include "sensors/tdssensor.h"
-#include "hardwareLayout.h"
+#include "hardwarelayout.h"
 #include "sensor.h"
 
 TDSSensor::TDSSensor(uint16_t sensor_id, uint16_t type_id) : Sensor(sensor_id, type_id) {}

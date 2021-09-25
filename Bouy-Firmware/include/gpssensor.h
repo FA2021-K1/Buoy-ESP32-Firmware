@@ -3,7 +3,7 @@
 
 #include <utility>
 #include <global_enums.h>
-#include <TinyGps++.h>
+#include <TinyGPS++.h>
 #include "datetime.h"
 
 typedef std::pair<float, float> Location;

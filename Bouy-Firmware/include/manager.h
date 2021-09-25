@@ -16,7 +16,7 @@
  */
 class Manager {
 public:
-  Manager() {}
+  Manager() {_startTransmission = false;}
 
   void create_objects();
   void execute();
@@ -27,12 +27,17 @@ public:
   std::shared_ptr<GPSSensor> get_gpssensor() {return _gpssensor;}
   std::shared_ptr<BuoyBLE> get_buoyble() {return _buoyble;}
 
+  void startTransmission(){
+    this->_startTransmission = true;
+  }
 private:
   std::shared_ptr<Buoy> _buoy;
   std::shared_ptr<RaspPi> _rasppi;
   std::shared_ptr<SDCard> _sdcard;
   std::shared_ptr<GPSSensor> _gpssensor;
   std::shared_ptr<BuoyBLE> _buoyble;
+
+  volatile bool _startTransmission;
 };
 
 #endif

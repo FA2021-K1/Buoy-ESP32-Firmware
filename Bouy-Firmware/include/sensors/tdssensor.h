@@ -13,7 +13,7 @@
 
 class TDSSensor : public Sensor {
 public:
-    TDSSensor(uint32_t sensor_id, uint32_t type_id);
+    TDSSensor(uint16_t sensor_id, uint16_t type_id);
     virtual ~TDSSensor() = default;
     virtual std::vector<Value> sampleValues() override;
 };

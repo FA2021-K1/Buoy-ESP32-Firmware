@@ -3,12 +3,16 @@
 
 #include <cstdint>
 
+
+/* BUOY Header ----------------------------------------------*/
 struct buoy_header
 {
     uint16_t sender_id;
     uint16_t receiver_id;
     uint8_t next_header;
 };
+
+#define BUOY_BROADCAST_ID 0xffff
 
 /* BTCP Header ----------------------------------------------*/
 #define BTCP_HEADER_ID 0x06
@@ -71,6 +75,20 @@ struct measurement_payload_value_field
     uint8_t sensor_id;
     uint8_t type_id;
     double value;
+};
+
+/* Lora Package ---------------------------------------------*/
+struct lora_package
+{
+    union{
+        struct buoy_header buoy_header;
+        struct{
+            struct buoy_header buoy_header;
+            struct btcp_header btcp_header;
+        } btcp_pack;
+        uint8_t data[255];
+    };
+    uint8_t size;
 };
 
 #endif

@@ -1,0 +1,48 @@
+BUOY HEADER = 5 Bytes
+-------------------------------------------------
+SENDER ID = SENDER BUOY ID
+RECEIVER ID = RECEIVER BUOY ID | BROADCAST ID
+NEXT HEADER = 0x06 (for now)
+
+
+BTCP HEADER (ID 0x06) = 4 Bytes
+-------------------------------------------------
+SEQ = SEQUENCE NUMBER
+ACK = ACKNOWLEDGEMENT NUMBER
+FLAGS = | ACK | SYNC | RESET | FIN |  |  |  |  |
+NEXT HEADER = 0x10 (metadata) | 0x11 (measurement)
+
+
+METADATA HEADER (ID 0x10) = 2 Bytes
+-------------------------------------------------
+MD = 0 (no more data) | 1 (more data)
+SIZE = size of current payload (multiples of 16bits)
+
+
+METADATA PAYLOAD = 10 Bytes
+-------------------------------------------------
+BUOY ID = UINT16
+START MEASUREMENT ID = UINT32
+END MEASUREMENT ID = UINT32
+
+
+MEASUREMENT HEADER (ID 0x11) = 2 Bytes
+-------------------------------------------------
+MD = 0 (no more data) | 1 (more data)
+SIZE = size of current payload (multiples of )
+
+
+MEASUREMENT PAYLOAD SPECIAL FIELD (MD = 0) = 14 Bytes
+-------------------------------------------------
+BUOY ID = UINT16
+LAT = LATITUDE FLOAT
+LON = LONGITUDE FLOAT
+TIMESTAMP = UINT32 UNIX TIME
+[... VALUE FIELDS = 10 Bytes ...]
+
+
+MEASUREMENT PAYLOAD VALUE FIELD (MD = 1) = 10 Bytes
+-------------------------------------------------
+SENSOR ID = UINT8
+TYPE ID = UINT8
+VALUE = DOUBLE

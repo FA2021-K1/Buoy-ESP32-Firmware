@@ -2,7 +2,7 @@
 
 #include "buoy.h"
 
-Buoy::Buoy(unsigned int buoy_id) : _buoy_id(buoy_id) {}
+Buoy::Buoy(uint16_t buoy_id) : _buoy_id(buoy_id) {}
 
 void Buoy::attachSensor(std::shared_ptr<Sensor> sensor) {
   _sensors.push_back(sensor);

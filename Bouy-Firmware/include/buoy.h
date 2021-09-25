@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <memory>
+#include <cstdint>
 
 #include "sensor.h"
 
@@ -17,17 +18,17 @@
  */
 class Buoy {
 public:
-  Buoy(unsigned int buoy_id);
+  Buoy(uint16_t buoy_id);
   ~Buoy() = default;
 
   void attachSensor(std::shared_ptr<Sensor> sensor);
 
-  unsigned int get_buoy_id() {return _buoy_id;};
+  uint16_t get_buoy_id() {return _buoy_id;};
 
   std::vector<Value> sampleAllSensors();
 
 private:
-  unsigned int _buoy_id;
+  uint16_t _buoy_id;
   std::vector<std::shared_ptr<Sensor>> _sensors;
 };
 

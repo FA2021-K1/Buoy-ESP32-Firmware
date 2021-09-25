@@ -13,11 +13,11 @@
 #include "rasppi.h"
 #include "sdcard.h"
 #include "sensor.h"
-#include "sensors/analogsensor.h"
 #include "sensordata.h"
 #include "transferdata.h"
 #include "value.h"
 #include <raspicom/raspcommands.h>
+#include <lora_header/buoy_header.h>
 
 
 Manager manager;

@@ -13,13 +13,13 @@
 class BuoyBLEServerCallbacks : public BLEServerCallbacks {
   void onConnect(BLEServer* pserver) {
       Serial.println("BLE Device connected");
-  };
+  }
 
   void onDisconnect(BLEServer* pserver) {
     Serial.println("BLE Device disconnected");
     pserver->getAdvertising()->start();
     Serial.println("BLE advertising restarted");
-  };
+  }
 };
 
 void BuoyBLE::init()

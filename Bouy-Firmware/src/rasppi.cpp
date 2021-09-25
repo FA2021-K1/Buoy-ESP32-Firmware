@@ -8,6 +8,7 @@
 
 #define UART_BUF_SIZE (2048)
 static QueueHandle_t uart_queue;
+static volatile bool _startTransmission;
 static void UART_ISR_ROUTINE(void *pvParameters);
 
 void init_uart();
@@ -15,7 +16,6 @@ void init_uart();
 RaspPi::RaspPi()
 {
     this->_rasppi_status = RaspPiStatus::OFF;
-
     pinMode(PI_RELAY_PIN, OUTPUT);
     digitalWrite(PI_RELAY_PIN, LOW);
 
@@ -32,14 +32,16 @@ void RaspPi::writeData(std::string json_string)
     TransferDumpCommand dumpCommand = TransferDumpCommand(json_string);
     std::string json = dumpCommand.toJsonString();
     json += "\n";
+    while(!_startTransmission);
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
     uart_write_bytes(PI_UART, json.c_str(), json.length()); //send string with null termination
+    _startTransmission = false;
 }
 
 void RaspPi::turnOn()
 {
     this->_rasppi_status = RaspPiStatus::TURNING_ON;
     digitalWrite(PI_RELAY_PIN, HIGH);
-    Serial.println("turning on wifi");
 }
 
 void RaspPi::turnOff()
@@ -51,6 +53,8 @@ void RaspPi::turnOff()
 void init_uart()
 {
     Serial.println("Initializing UART2");
+    
+    _startTransmission = false;
     uart_config_t uart2_configuartion = {
         .baud_rate = 115200,
         .data_bits = UART_DATA_8_BITS,
@@ -89,7 +93,7 @@ static void UART_ISR_ROUTINE(void *pvParameters)
             case UART_DATA:
                 ESP_ERROR_CHECK(uart_get_buffered_data_len(PI_UART, (size_t *)&received_data_length));
                 received_data_length = uart_read_bytes(PI_UART, dtmp + dtmp_index, received_data_length, 100);
-
+                _startTransmission = true;
                 dtmp_index += received_data_length;
                 for (int i = received_data_length; i > 0; i--)
                 {

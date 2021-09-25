@@ -5,7 +5,7 @@
 #include "rasppi.h"
 #include "sensordata.h"
 #include "value.h"
-#include "sensors/analogsensor.h"
+#include "sensors/tdssensor.h"
 #include "raspicom/raspcommands.h"
 #include "buoyble.h"
 #include "datetime.h"
@@ -33,11 +33,11 @@ void Manager::execute() {
     }
 
     // poll time and location from GPS module
-    Location location = _gpssensor->get_location();
+    Location_t location = _gpssensor->get_location();
     DateTime datetime = _gpssensor->get_datetime();
 
     // // mock gps data
-    // Location location(123, -1.2);
+    // Location_t location(123, -1.2);
     // DateTime datetime(2013, 11, 11, 11, 11, 11, 99);
 
     // sample all sensors (currently one) and create SensorData instance

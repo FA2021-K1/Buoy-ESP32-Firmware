@@ -1,6 +1,9 @@
 #ifndef GLOBAL_ENUMS
 #define GLOBAL_ENUMS
 
+typedef std::vector<std::tuple<uint16_t, uint32_t, uint32_t>> buoyStatus_t;
+typedef std::pair<float, float> Location_t;
+
 enum SensorStatus {
   UP,
   DOWN,
@@ -31,4 +34,5 @@ enum RaspPiCommandType {
   ACK,
   REQUEST_SHUTDOWN,
 };
+
 #endif

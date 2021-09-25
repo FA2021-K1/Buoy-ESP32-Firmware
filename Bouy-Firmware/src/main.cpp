@@ -13,7 +13,7 @@
 #include "rasppi.h"
 #include "sdcard.h"
 #include "sensor.h"
-#include "sensors/analogsensor.h"
+#include "sensors/tdssensor.h"
 #include "sensordata.h"
 #include "transferdata.h"
 #include "value.h"

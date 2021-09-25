@@ -11,8 +11,6 @@
 #include "buoy.h"
 #include "datetime.h"
 
-typedef std::pair<float, float> Location;
-
 /**
  * Dataclass for all variables that correspond to one measurement sample.
  */
@@ -26,7 +24,7 @@ public:
    * @param timestamp  Time of measurement.
    * @param values     Vector containing all values that are acquired by sensor.
    */
-  SensorData(uint16_t buoy_id, Location location,
+  SensorData(uint16_t buoy_id, Location_t location,
              DateTime timestamp, std::vector<Value> values);
              
   /**
@@ -37,7 +35,7 @@ public:
   std::string toJsonString();
 private:
   uint16_t _buoy_id;
-  Location _location;
+  Location_t _location;
   DateTime _timestamp;
   std::vector<Value> _values;
 };

@@ -6,10 +6,9 @@
 #include "value.h"
 #include "buoy.h"
 #include "sensordata.h"
+#include "global_enums.h"
 
-typedef std::pair<float, float> Location;
-
-SensorData::SensorData(uint16_t buoy_id, Location location,
+SensorData::SensorData(uint16_t buoy_id, Location_t location,
                        DateTime timestamp, std::vector<Value> values) :
                        _buoy_id(buoy_id), _location(location), _timestamp(timestamp), _values(values) {}
 

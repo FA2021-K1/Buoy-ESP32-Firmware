@@ -42,7 +42,7 @@ void Manager::execute() {
 
     // sample all sensors (currently one) and create SensorData instance
     auto all_values = _buoy->sampleAllSensors();
-    SensorData sensordata(_buoy, location, datetime, all_values);
+    SensorData sensordata(_buoy->get_buoy_id(), location, datetime, all_values);
 
     // print to json string to Serial
     Serial.println(sensordata.toJsonString().c_str());

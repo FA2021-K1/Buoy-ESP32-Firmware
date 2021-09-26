@@ -1,0 +1,10 @@
+{
+	"buoyID":0,
+	"date":"2021-09-26T11:09:00+00",
+	"location":{"latitude":16.4,"longitude":11.4},
+	"measurements":[
+		{"sensorID":5,"sensorType":5,"measurement":3.14},
+		{"sensorID":2,"sensorType":2,"measurement":4.14},
+		{"sensorID":1,"sensorType":1,"measurement":5.14}
+	]
+}

@@ -5,16 +5,16 @@
     "description": "A dump of all sensor data from one buoy at one point in time",
     "type": "object",
     "properties": {
-        "bouyId": {
-            "description": "The unique identifier for the bouy",
+        "buoyID": {
+            "description": "The unique identifier for the buoy",
             "type": "integer"
         },
         "date": {
-            "description": "Timestamp when the measurements were taken; the format is ISO 8601",
+            "description": "Timestamp when the measurements were taken; the format is ISO 8601 with 'T' as delimiter between date and time and +00 for timezone after seconds (as in the example)",
             "type": "string"
         },
         "location": {
-            "description": "Current position of the bouy",
+            "description": "Current position of the buoy",
             "type": "object",
             "properties": {
                 "latitude": {

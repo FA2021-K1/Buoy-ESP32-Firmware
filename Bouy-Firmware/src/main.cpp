@@ -17,6 +17,7 @@
 #include "transferdata.h"
 #include "value.h"
 #include <raspicom/raspcommands.h>
+#include <lora_header/buoy_header.h>
 
 
 Manager manager;

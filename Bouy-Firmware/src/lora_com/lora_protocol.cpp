@@ -1,5 +1,7 @@
 #include <lora_header/lora_protocol.h>
 #include <hardwarelayout.h>
+#include <algorithm>
+#include <iterator>
 
 uint8_t process_package(std::shared_ptr<struct lora_package> package, std::shared_ptr<struct lora_context> context)
 {
@@ -28,14 +30,9 @@ uint8_t process_btcp(std::shared_ptr<struct lora_package> package, std::shared_p
         return BTCP_ERR_PACKAGE_TO_SMALL;
 
     //look if already have state of that buoy
-    std::list<std::shared_ptr<struct btcp_state>>::iterator btcp_state_it;
     std::shared_ptr<struct btcp_state> btcp_state;
-    for (btcp_state_it = context->btcp_state_list.begin(); btcp_state_it != context->btcp_state_list.end(); btcp_state_it++)
-        if ((*btcp_state_it)->remote_buoy_id != package->buoy_header.sender_id)
-        {
-            btcp_state = (*btcp_state_it);
-            break;
-        }
+    auto it = find_if(context->btcp_state_list.begin(), context->btcp_state_list.end(), [&package](const std::shared_ptr<struct btcp_state>& ptr){return package->buoy_header.sender_id == ptr->remote_buoy_id;});
+    if(it != context->btcp_state_list.end()) btcp_state = *it;
 
     // create state struct if necessary
     if (btcp_state == nullptr)

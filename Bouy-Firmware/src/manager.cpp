@@ -5,7 +5,6 @@
 #include "rasppi.h"
 #include "sensordata.h"
 #include "value.h"
-#include "sensors/analogsensor.h"
 #include "raspicom/raspcommands.h"
 #include "buoyble.h"
 #include "datetime.h"

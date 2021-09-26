@@ -4,6 +4,9 @@
 #include <memory>
 #include <lora_header/btcp.h>
 
+#include "lwip/sockets.h"
+#include "lwip/sys.h"
+
 enum DataProtocolState
 {
     NEW,

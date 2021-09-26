@@ -1,36 +1,25 @@
 #include <lora_header/btcp.h>
 #include <lora_header/buoy_header.h>
 
-void create_btcp_broadcast_sync_request(lora_package *package, btcp_state *state)
+BtcpConnection::BtcpConnection(uint16_t local_buoy_id, uint16_t remote_buoy_id) : local_buoy_id(local_buoy_id), remote_buoy_id(remote_buoy_id)
 {
-    package->btcp_pack.buoy_header.sender_id = state->local_buoy_id;
-    package->btcp_pack.buoy_header.receiver_id = BUOY_BROADCAST_ID;
-    package->btcp_pack.buoy_header.next_header = BTCP_HEADER_ID;
-    package->btcp_pack.btcp_header.seq_number = state->local_sequence_number++;
-    package->btcp_pack.btcp_header.ack_number = 0;
-    package->btcp_pack.btcp_header.next_header = NO_MORE_HEADER_ID;
-    package->btcp_pack.btcp_header.flags = BTCP_FLAG_SYN;
-
-    package->size = 9; // 5 Byte buoy_header; 4 byte btcp_header
+    _connection_state = BtcpConnectionState::UNINITIALIZED;
 }
 
-void create_sync_response(lora_package *package, btcp_state *state)
+void BtcpConnection::onPackageSend(std::shared_ptr<struct payload> payload)
 {
-    package->btcp_pack.buoy_header.sender_id = state->local_buoy_id;
-    package->btcp_pack.buoy_header.receiver_id = state->remote_buoy_id;
-    package->btcp_pack.buoy_header.next_header = BTCP_HEADER_ID;
-    package->btcp_pack.btcp_header.seq_number = state->local_sequence_number++;
-    package->btcp_pack.btcp_header.ack_number = state->remote_sequence_number;
-    package->btcp_pack.btcp_header.next_header = NO_MORE_HEADER_ID;
-    package->btcp_pack.btcp_header.flags = BTCP_FLAG_ACK | BTCP_FLAG_SYN;
 }
 
-void create_btcp_package(lora_package *package, btcp_state *state)
+void BtcpConnection::onPackageReceived(std::shared_ptr<struct payload> payload)
 {
-    package->btcp_pack.buoy_header.sender_id = state->local_buoy_id;
-    package->btcp_pack.buoy_header.receiver_id = state->remote_buoy_id;
-    package->btcp_pack.buoy_header.next_header = BTCP_HEADER_ID;
-    package->btcp_pack.btcp_header.seq_number = state->local_sequence_number;
-    package->btcp_pack.btcp_header.ack_number = state->remote_sequence_number;
-    package->btcp_pack.btcp_header.flags = BTCP_FLAG_ACK;
+}
+
+uint8_t BtcpLayer::register_connection(uint16_t remove_buoy_id, std::shared_ptr<BtcpConnection> connection){
+    //check if a connection to this buoy is already registered
+     
+}
+
+size_t BtcpLayer::get_maximum_payload_size()
+{
+    return LoraHardwareLayer::get_maximum_payload_size() - BTCP_HEADER_SIZE;
 }

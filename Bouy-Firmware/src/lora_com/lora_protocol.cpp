@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iterator>
 
+/*
 uint8_t process_package(std::shared_ptr<struct lora_package> package, std::shared_ptr<struct lora_context> context)
 {
     if (package->size < BUOY_HEADER_SIZE)
@@ -164,4 +165,4 @@ void update_seq_number(std::shared_ptr<struct btcp_state> state, std::shared_ptr
     {
         //last package was not received, resend package
     }
-}
+}*/

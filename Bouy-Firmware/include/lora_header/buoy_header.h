@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #define NO_MORE_HEADER_ID 0
+#define LORA_PACKAGE_SIZE 255
 
 /* BUOY Header ----------------------------------------------*/
 struct __attribute__((__packed__)) buoy_header
@@ -97,6 +98,13 @@ struct lora_package
     };
     uint8_t size;
     uint8_t state;
+};
+
+struct payload
+{
+        uint8_t data[255];
+        uint8_t header_id;
+        uint8_t size;
 };
 
 

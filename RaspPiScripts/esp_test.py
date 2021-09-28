@@ -9,7 +9,7 @@ filepath = "/buoy/data/measurement.json"
 def main():
     ser = serial.Serial()
     ser.baudrate = 115200
-    ser.port = "/dev/ttyAMA1"
+    ser.port = "/dev/ttyAMA0"
     ser.open()
     ser.write("test")
     data = ser.readline()
@@ -19,7 +19,7 @@ def main():
     print(j['data']['data'])
     print(j['cmd'])
 
-    with open(filepath,"w")as outfile:
+    with open(filepath,"w") as outfile:
         outfile.write(j['data']['data'])
 
 if __name__=="__main__":

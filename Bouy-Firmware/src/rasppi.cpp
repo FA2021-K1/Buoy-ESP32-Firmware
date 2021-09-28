@@ -15,6 +15,7 @@ void init_uart();
 
 RaspPi::RaspPi()
 {
+    Serial.println("Created Rasppi");
     this->_rasppi_status = RaspPiStatus::OFF;
     pinMode(PI_RELAY_PIN, OUTPUT);
     digitalWrite(PI_RELAY_PIN, LOW);
@@ -130,6 +131,3 @@ static void UART_ISR_ROUTINE(void *pvParameters)
     //Out side of loop now. Task needs to clean up and self terminate before returning
     vTaskDelete(NULL);
 }
-
-
-std::string RaspPi::readData() {}

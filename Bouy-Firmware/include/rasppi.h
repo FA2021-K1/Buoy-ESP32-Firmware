@@ -8,19 +8,17 @@
 
 #include "ArduinoJson.h"
 
-#include "transferdata.h"
 #include "global_enums.h"
 #include "driver/uart.h"
 
-class RaspPi : public TransferData {
+class RaspPi {
     public:
         RaspPi();
 
         // METHODS
         void turnOn();
         void turnOff();
-        virtual void writeData(std::string json_string) override;
-        virtual std::string readData() override;
+        void writeData(std::string json_string);
 
         // GETTERS
         RaspPiStatus get_status();

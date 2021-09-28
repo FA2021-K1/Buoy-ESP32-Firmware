@@ -10,7 +10,18 @@
  */
 class DateTime {
     public:
+        /**
+         * Create from uints.
+         */
         DateTime(uint16_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t);
+        /**
+         * Create from iso-string.
+         */
+        DateTime(std::string);
+        /**
+         * Create all zero datetime
+         */
+        DateTime();
 
         uint16_t year;
         uint8_t month;
@@ -24,7 +35,6 @@ class DateTime {
          * Returns ISO-8601 formatted timestamp string (no centiseconds and timezone)
          */
         std::string to_iso();
-        // std::string to_filename();
 };
 
 #endif

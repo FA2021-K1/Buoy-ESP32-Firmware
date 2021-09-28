@@ -16,10 +16,12 @@
  */
 class Manager {
 public:
-  Manager() {_startTransmission = false;}
+  Manager();
 
-  void create_objects();
+  void createObjects();
   void execute();
+  void setupTimers(); 
+  void takeMeasurements();
 
   std::shared_ptr<Buoy> get_buoy() {return _buoy;}
   std::shared_ptr<RaspPi> get_rasppi() {return _rasppi;}
@@ -30,6 +32,7 @@ public:
   void startTransmission(){
     this->_startTransmission = true;
   }
+
 private:
   std::shared_ptr<Buoy> _buoy;
   std::shared_ptr<RaspPi> _rasppi;

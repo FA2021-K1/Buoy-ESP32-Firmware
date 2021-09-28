@@ -24,7 +24,8 @@ Manager manager;
 void setup() {
   Serial.begin(115200);
   Serial.println("Starting main()");
-  manager.create_objects();
+  manager.createObjects();
+  manager.setupTimers();
 }
 
 void loop() {

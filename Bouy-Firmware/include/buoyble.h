@@ -14,6 +14,7 @@
 class BuoyBLE
 {
     public:
+        BuoyBLE();
         void init();
         std::string getValue();
         bool getValue_bool();

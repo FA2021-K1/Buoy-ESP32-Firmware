@@ -5,6 +5,10 @@
 #include "datetime.h"
 #include "hardwarelayout.h"
 
+GPSSensor::GPSSensor() {
+    Serial.println("GPSSensor created");
+}
+
 void GPSSensor::init() {
     Serial1.begin(9600, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN, false, 64);
     // CFG-PRT

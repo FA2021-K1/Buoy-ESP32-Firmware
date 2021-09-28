@@ -16,7 +16,7 @@
 class GPSSensor
 {
     public:
-        GPSSensor(){}
+        GPSSensor();
         ~GPSSensor(){}
 
         /**

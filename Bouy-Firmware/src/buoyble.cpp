@@ -10,6 +10,12 @@
 #define SERVICE_UUID        "686fc1ae-b815-48a4-9b26-300eaefd2b03"
 #define CHARACTERISTIC_UUID "77fc5631-ab53-44fb-a5c0-753b08423814"
 
+
+BuoyBLE::BuoyBLE() {
+  Serial.println("Created BLE module");
+}
+
+
 class BuoyBLEServerCallbacks : public BLEServerCallbacks {
   void onConnect(BLEServer* pserver) {
       Serial.println("BLE Device connected");

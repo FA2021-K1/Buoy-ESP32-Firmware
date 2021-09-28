@@ -21,9 +21,9 @@ public:
   void disable();
 
   // GETTERS
-  uint8_t get_sensor_id();
-  uint8_t get_type_id();
-  SensorStatus get_status();
+  uint8_t get_sensor_id() {return _sensor_id;}
+  uint8_t get_type_id() {return _type_id;}
+  SensorStatus get_status() {return _status;}
 
 protected:
   uint8_t _sensor_id;

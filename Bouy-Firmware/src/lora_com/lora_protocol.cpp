@@ -3,12 +3,49 @@
 #include <algorithm>
 #include <iterator>
 
+using namespace std;
+
+uint8_t LoraContext::register_handle(header_id_t header_id, shared_ptr<LoraLayer> callable)
+{
+    if (_handler.find(header_id) == _handler.end())
+    {
+        _handler.insert(make_pair(header_id, callable));
+        return EXIT_SUCCESS;
+    }
+    else
+    {
+        return EXIT_FAILURE;
+    }
+}
+
+uint8_t LoraContext::unregister_handle(header_id_t header_id)
+{
+    auto handle = _handler.find(header_id);
+    if (handle == _handler.end())
+    {
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        _handler.erase(handle);
+        return EXIT_SUCCESS;
+    }
+}
+
+std::shared_ptr<LoraLayer> LoraContext::get_handler(header_id_t header_id)
+{
+    auto handle = _handler.find(header_id);
+    if (handle == _handler.end())
+        return nullptr;
+    else
+        return handle->second;
+}
 /*
 uint8_t process_package(std::shared_ptr<struct lora_package> package, std::shared_ptr<struct lora_context> context)
 {
     if (package->size < BUOY_HEADER_SIZE)
         return LORA_ERR_PACKAGE_TO_SMALL;
-    if (package->buoy_header.receiver_id != context->buoy_id && package->buoy_header.receiver_id != BUOY_BROADCAST_ID)
+    if (package->buoy_header.receiver_id != context->buoy_id && package->buoy_header.receiver_id != BUOY_ID_BROADCAST)
     {
         // got package that was not for us
         return LORA_WRONG_ADDRESS;
@@ -87,7 +124,7 @@ uint8_t process_btcp(std::shared_ptr<struct lora_package> package, std::shared_p
             std::list<std::shared_ptr<struct btcp_state>>::iterator broadcast_btcp_state_it;
             std::shared_ptr<struct btcp_state> broadcast_btcp_state = nullptr;
             for (broadcast_btcp_state_it = context->btcp_state_list.begin(); broadcast_btcp_state_it != context->btcp_state_list.end(); broadcast_btcp_state_it++)
-                if ((*broadcast_btcp_state_it)->remote_buoy_id != BUOY_BROADCAST_ID)
+                if ((*broadcast_btcp_state_it)->remote_buoy_id != BUOY_ID_BROADCAST)
                 {
                     broadcast_btcp_state = (*broadcast_btcp_state_it);
                     break;

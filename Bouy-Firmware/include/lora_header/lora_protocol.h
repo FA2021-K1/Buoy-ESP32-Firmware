@@ -2,21 +2,56 @@
 #define LORA_PROTOCOL
 
 #include <list>
+#include <time>
+#include <memory>
+#include <functional>
 #include <lora_header/buoy_header.h>
-#include <lora_header/btcp.h>
+#include <unordered_map>
+#include <stack>
+#include <queue>
 
-struct lora_context
+typedef std::function<void(uint8_t)> callback_t;
+
+class LoraLayer
 {
-    lora_context(uint16_t buoy_id) : buoy_id(buoy_id){}
-    const uint16_t buoy_id;
-    std::list<std::shared_ptr<struct btcp_state>> btcp_state_list;
+public:
+    LoraLayer(std::shared_ptr<LoraLayer> lower_layer) : _lower_layer(lower_layer) {}
+    virtual ~LoraLayer();
+    virtual void send(std::unique_ptr<struct payload> payload, std::unique_ptr<std::stack<callback_t>> callbacks) = 0;
+    virtual void receive(std::unique_ptr<struct payload> payload) = 0;
+    virtual void onTimeout(uint8_t identifier);
+
+protected:
+    std::shared_ptr<LoraLayer> _lower_layer;
 };
 
-uint8_t process_package(std::shared_ptr<struct lora_package> package,std::shared_ptr<struct lora_context> context);
-uint8_t process_btcp(std::shared_ptr<struct lora_package> package,std::shared_ptr<struct lora_context> context);
+struct packet_timeout_callback
+{
+    int64_t time;
+    uint8_t identifier;
+    std::shared_ptr<LoraLayer> layer;
+};
 
-void update_seq_number(std::shared_ptr<struct btcp_state> state, std::shared_ptr<struct lora_context> context, uint8_t ack_number);
-void btcp_cleanup(std::shared_ptr<struct btcp_state> state, std::shared_ptr<struct lora_context> context);
+class LoraContext
+{
+public:
+    static uint8_t register_handle(header_id_t header_id, std::shared_ptr<LoraLayer> callable);
+    static uint8_t unregister_handle(header_id_t header_id);
+    static std::shared_ptr<LoraLayer> get_handler(header_id_t header_id);
+    static void queue_callback(std::shared_ptr<LoraLayer>, uint8_t identifier)
+    {
+        struct timeval tv_now;
+        gettimeofday(&tv_now, NULL);
+        int64_t time_us = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
+        struct packet_timeout_callbacks callback = {.time = }
+        _timeouts.push()
+    }
+
+private:
+    LoraContext();
+    static std::unordered_map<uint8_t, std::shared_ptr<LoraLayer>> _handler;
+    static std::queue<struct packet_timeout_callback> _timeouts;
+};
 
 #define LORA_SUCESS 0x00
 #define LORA_WRONG_ADDRESS 0x01

@@ -4,26 +4,21 @@
 #include <memory>
 #include <queue>
 #include <lora_header/buoy_header.h>
+#include <lora_header/lora_protocol.h>
 
-class PackageCallable
+using namespace std;
+
+class LoraHardwareLayer : LoraLayer
 {
 public:
-    PackageCallable();
-    virtual ~PackageCallable();
-    virtual void onPackageSend(std::shared_ptr<struct payload> payload) = 0;
-    virtual void onPackageReceived(std::shared_ptr<struct payload> payload) = 0;
-};
-
-class LoraHardwareLayer
-{
-public:
-    LoraHardwareLayer(uint16_t buoy_id);
-    void sendTo(std::unique_ptr<struct payload> payload, uint16_t receiver_id, std::unique_ptr<PackageCallable> callback);
+    LoraHardwareLayer(buoy_id_t buoy_id);
+    void send(std::unique_ptr<struct payload> payload, std::unique_ptr<std::stack<callback_t>> callbacks) override;
+    void receive(std::unique_ptr<struct payload> payload) override;
     static size_t get_maximum_payload_size();
 
 private:
-    const uint16_t _buoy_id;
-    std::queue<std::pair<std::unique_ptr<struct lora_package>, std::unique_ptr<PackageCallable>>> _send_queue;
+    const buoy_id_t _buoy_id;
+    queue<pair<unique_ptr<struct lora_package>,unique_ptr<stack<callback_t>>>> _send_queue;
 };
 
 #endif

@@ -11,10 +11,13 @@
 #include "sensordata.h"
 
 
-SDCard::SDCard(uint16_t buoy_id) : _buoy_id(buoy_id) {}
+SDCard::SDCard(uint16_t buoy_id) : _buoy_id(buoy_id) {
+  Serial.println("Created SD Card");
+}
 
 
 void SDCard::init() {
+  Serial.println("Now initializing SD Card");
   if (!SD.begin()) {
       Serial.println("Card Mount Failed");
       return;
@@ -159,6 +162,7 @@ SensorData SDCard::readSensorData(uint16_t buoy_id, uint32_t measurement_id) {
                           DateTime(json_doc["date"].as<std::string>()), std::vector<Value>());
     // parse values TODO SOMEHOW NOT WORKING
     Serial.println("Now parsing values");
+    sensordata_file = SD.open(filename, FILE_READ);
     sensordata_file.find("\"measurements\":[");
     do {
       deserializeJson(json_doc, sensordata_file);

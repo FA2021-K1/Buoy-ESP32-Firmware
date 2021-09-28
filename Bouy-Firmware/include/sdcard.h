@@ -9,7 +9,6 @@
 #include <tuple>
 #include <memory>
 
-#include "transferdata.h"
 #include "metadata.h"
 #include "global_enums.h"
 #include "sensordata.h"

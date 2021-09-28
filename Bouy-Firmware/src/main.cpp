@@ -14,7 +14,6 @@
 #include "sdcard.h"
 #include "sensor.h"
 #include "sensordata.h"
-#include "transferdata.h"
 #include "value.h"
 #include <raspicom/raspcommands.h>
 #include <lora_header/buoy_header.h>
@@ -24,10 +23,12 @@ Manager manager;
 
 void setup() {
   Serial.begin(115200);
+  Serial.println("Starting main()");
   manager.create_objects();
 }
 
 void loop() {
+  Serial.println("Starting loop()");
   manager.execute();
   delay(1000);
 }

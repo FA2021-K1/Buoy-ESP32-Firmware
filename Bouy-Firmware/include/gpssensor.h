@@ -2,11 +2,11 @@
 #define GPSMODULE_H
 
 #include <utility>
-#include <global_enums.h>
-#include <TinyGPS++.h>
-#include "datetime.h"
 
-typedef std::pair<float, float> Location;
+#include <TinyGPS++.h>
+
+#include "datetime.h"
+#include "global_enums.h"
 
 /**
  * Interface for the GPS Module.
@@ -24,7 +24,7 @@ class GPSSensor
          */
         void init();
 
-        Location get_location();
+        Location_t get_location();
         GPSStatus get_status();
         int32_t get_hdop();
         DateTime get_datetime();

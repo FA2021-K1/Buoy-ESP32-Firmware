@@ -7,7 +7,7 @@
 #include "hardwarelayout.h"
 #include "sensor.h"
 
-TDSSensor::TDSSensor(uint16_t sensor_id, uint16_t type_id) : Sensor(sensor_id, type_id) {}
+TDSSensor::TDSSensor(uint8_t sensor_id, uint8_t type_id) : Sensor(sensor_id, type_id) {}
 
 std::vector<Value> TDSSensor::sampleValues() {
   double adcValue = analogRead(TDS_PIN);

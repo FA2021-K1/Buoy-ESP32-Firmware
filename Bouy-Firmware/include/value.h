@@ -15,10 +15,10 @@ public:
    * @param sensor_id_  Sensor id (unique on buoy).
    * @param data        Measurement value.
    */
-  Value(uint16_t type_id_, uint16_t sensor_id_, double data_) : 
+  Value(uint8_t type_id_, uint8_t sensor_id_, double data_) : 
     type_id(type_id_), sensor_id(sensor_id_), data(data_) {};
-  uint16_t type_id;
-  uint16_t sensor_id;
+  uint8_t type_id;
+  uint8_t sensor_id;
   double data;
 };
 

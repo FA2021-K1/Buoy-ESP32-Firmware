@@ -48,7 +48,7 @@ void GPSSensor::init() {
     Serial1.begin(115200, SERIAL_8N1, GPS_RX_PIN, GPS_TX_PIN, false, 64);
 }
 
-Location GPSSensor::get_location()
+Location_t GPSSensor::get_location()
 {
     int i = 1000;
     while (i > 0) {

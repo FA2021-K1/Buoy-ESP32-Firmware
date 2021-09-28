@@ -19,7 +19,8 @@ void Manager::create_objects()
     // _buoyble = std::make_shared<BuoyBLE>();
 
     // attach sensors
-    _buoy->attachSensor(std::make_shared<TDSSensor>(123, 45));
+    _buoy->attachSensor(std::make_shared<TDSSensor>(7));
+    _buoy->attachSensor(std::make_shared<TDSSensor>(18));
     
     _sdcard->init();
     // _gpssensor->init();
@@ -56,8 +57,8 @@ void Manager::execute() {
     _sdcard->writeSensorData(sensordata);
     delay(3000);
     SensorData test_read = _sdcard->readSensorData(_buoy->get_buoy_id(), last_id);
-    if (test_read) {Serial.println("FOUND");}
-    else {Serial.println("NOT FOUND");}
+    if (test_read) {Serial.println("FOUND FILE");}
+    else {Serial.println("FILE NOT FOUND");}
 
     // _rasppi->turnOn();
     // vTaskDelay(10000 / portTICK_PERIOD_MS);

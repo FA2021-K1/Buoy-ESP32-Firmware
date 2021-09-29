@@ -128,8 +128,8 @@ void SDCard::writeSensorData(SensorData sensordata) {
   Serial.println(filename);
   if (json_file) {
     json_file.println(sensordata.toJsonString().c_str());
-    Serial.println(sensordata.toJsonString().c_str());
-    Serial.println("Writing done");
+    // Serial.println(sensordata.toJsonString().c_str());
+    Serial.println("Writing finished successfully");
   } else {
     Serial.println("Writing Error");
   }
@@ -155,13 +155,13 @@ SensorData SDCard::readSensorData(uint16_t buoy_id, uint32_t measurement_id) {
   Serial.println(filename);
   if (sensordata_file) {
     // parse header of file
-    Serial.println("Now reading sensordata header");
+    // Serial.println("Now reading sensordata header");
     deserializeJson(json_doc, sensordata_file);
     SensorData sensordata(json_doc["buoyId"], json_doc["measurementId"],
                           Location_t(json_doc["latitude"], json_doc["longitude"]),
                           DateTime(json_doc["date"].as<std::string>()), std::vector<Value>());
-    // parse values TODO SOMEHOW NOT WORKING
-    Serial.println("Now parsing values");
+    // parse values
+    // Serial.println("Now parsing values");
     sensordata_file = SD.open(filename, FILE_READ);
     sensordata_file.find("\"measurements\":[");
     do {
@@ -170,8 +170,8 @@ SensorData SDCard::readSensorData(uint16_t buoy_id, uint32_t measurement_id) {
     } while (sensordata_file.findUntil(",", "]"));
 
     // create SensorData object
-    Serial.println("Parsing finished, printing SensorData:");
-    Serial.println(sensordata.toJsonString().c_str());
+    Serial.println("Parsing finished successfully");
+    // Serial.println(sensordata.toJsonString().c_str());
     return sensordata;
   } else {
     Serial.println("Error while loading SensorData file");

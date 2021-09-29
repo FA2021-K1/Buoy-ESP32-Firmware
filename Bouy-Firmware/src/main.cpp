@@ -1,21 +1,5 @@
 #include <Arduino.h>
-#include <cstdio>
-
-#include "ArduinoJson.h"
-
-#include "buoyble.h"
-#include "buoy.h"
-#include "datetime.h"
-#include "global_enums.h"
-#include "gpssensor.h"
-#include "hardwarelayout.h"
 #include "manager.h"
-#include "rasppi.h"
-#include "sdcard.h"
-#include "sensor.h"
-#include "sensordata.h"
-#include "value.h"
-#include <raspicom/raspcommands.h>
 
 
 Manager manager;
@@ -23,7 +7,6 @@ Manager manager;
 
 void setup() {
   Serial.begin(115200);
-  Serial.println("Starting main()");
   manager.createObjects();
   manager.setupTimers();
 }

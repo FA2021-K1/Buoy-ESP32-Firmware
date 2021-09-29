@@ -4,7 +4,7 @@ import serial
 import io
 import json
 
-filepath = "/buoy/data/measurement.json"
+dirpath = "/buoy/data/"
 
 def main():
     ser = serial.Serial()
@@ -18,6 +18,8 @@ def main():
     print("got data\n")
     print(j['data']['data'])
     print(j['cmd'])
+
+    filepath = dirpath + j['data']['data']['buoyId'] + '_' + j['data']['data']['measurementId'] + '.json'
 
     with open(filepath,"w") as outfile:
         outfile.write(j['data']['data'])

@@ -16,10 +16,10 @@
 #include "sensordata.h"
 #include "value.h"
 #include <raspicom/raspcommands.h>
-#include <lora_header/buoy_header.h>
 
 
 Manager manager;
+
 
 void setup() {
   Serial.begin(115200);
@@ -28,8 +28,8 @@ void setup() {
   manager.setupTimers();
 }
 
+
 void loop() {
-  Serial.println("Starting loop()");
   manager.execute();
   delay(1000);
 }

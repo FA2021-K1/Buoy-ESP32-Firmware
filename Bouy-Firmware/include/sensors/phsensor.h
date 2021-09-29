@@ -10,11 +10,16 @@
 #include <vector>
 
 #include "sensor.h"
+#include "DFRobot_ESP_PH.h"
+#include <EEPROM.h>
 
 class PHSensor : public Sensor {
 public:
     PHSensor(uint8_t sensor_id);
     virtual ~PHSensor() = default;
     virtual std::vector<Value> sampleValues() override;
+private:
+    // TODO
+    DFRobot_ESP_PH ph;
 };
 #endif

@@ -10,9 +10,10 @@
 #include "buoyble.h"
 #include "datetime.h"
  
-hw_timer_t * measurement_timer = NULL;
+hw_timer_t* measurement_timer = NULL;
 portMUX_TYPE measurement_timer_mux = portMUX_INITIALIZER_UNLOCKED;
 Manager* manager_pointer = nullptr;
+
 
 void IRAM_ATTR measurementCallback() {
     portENTER_CRITICAL_ISR(&measurement_timer_mux);
@@ -29,11 +30,10 @@ Manager::Manager() {
 
 
 void Manager::setupTimers() {
-    measurement_timer = timerBegin(0, 80000, true);
+    measurement_timer = timerBegin(0, 80, true);
     timerAttachInterrupt(measurement_timer, &measurementCallback, true);
-    timerAlarmWrite(measurement_timer, 10*1000, true);
+    timerAlarmWrite(measurement_timer, 10000000, true);
     timerAlarmEnable(measurement_timer);
- 
 }
 
 
@@ -54,7 +54,7 @@ void Manager::takeMeasurements() {
     SensorData sensordata(buoy_id, last_id, location, datetime, all_values);
 
     // print to json string to Serial and save to sdcard
-    Serial.println("obtained measurement: ");
+    Serial.println("Printing obtained SensorData: ");
     Serial.println(sensordata.toJsonString().c_str());
     _sdcard->writeSensorData(sensordata);
 }

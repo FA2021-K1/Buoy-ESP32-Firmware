@@ -20,9 +20,9 @@ enum GPSStatus {
 
 enum SensorType {
   TEMP,
+  COND,
   PH,
   REDOX,
-  COND,
 };
 
 enum RaspPiStatus {

@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <TinyGPS++.h>
 
-#include "gpssensor.h"
-#include "datetime.h"
+#include "hardwareclasses/gpssensor.h"
+#include "dataclasses/datetime.h"
 #include "hardwarelayout.h"
 
 GPSSensor::GPSSensor() {
@@ -101,7 +101,7 @@ DateTime GPSSensor::get_datetime()
 {
     int i = 1000;
     while (i > 0) {
-        while (!Serial1.available() > 0) {
+        while (!Serial1.available()) {
             delay(1);
         }
         byte gpsData = Serial1.read();

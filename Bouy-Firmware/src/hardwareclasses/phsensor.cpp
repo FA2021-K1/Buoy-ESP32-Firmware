@@ -3,7 +3,7 @@
 
 #include "Arduino.h"
 
-#include "sensors/phsensor.h"
+#include "hardwareclasses/phsensor.h"
 #include "hardwarelayout.h"
 #include "sensor.h"
 #include "global_enums.h"

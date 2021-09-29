@@ -1,8 +1,9 @@
-#include <buoyble.h>
 #include <Arduino.h>
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
+
+#include <hardwareclasses/buoyble.h>
 
 // See the following for generating UUIDs:
 // https://www.uuidgenerator.net/

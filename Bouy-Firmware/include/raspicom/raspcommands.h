@@ -1,7 +1,7 @@
 #ifndef RASPCOMMAND
 #define RASPCOMMAND
 
-#include <ArduinoJson.h>
+#include <libraries/ArduinoJson.h>
 #include <global_enums.h>
 
 class RaspCommand

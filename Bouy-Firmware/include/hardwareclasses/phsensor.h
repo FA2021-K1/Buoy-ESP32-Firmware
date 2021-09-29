@@ -10,8 +10,9 @@
 #include <vector>
 
 #include "sensor.h"
-#include "DFRobot_ESP_PH.h"
 #include <EEPROM.h>
+
+typedef int DFRobot_ESP_PH;
 
 class PHSensor : public Sensor {
 public:

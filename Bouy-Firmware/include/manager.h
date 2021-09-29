@@ -18,10 +18,30 @@ class Manager {
 public:
   Manager();
 
+  /**
+   * Instantiates all HW objects. Creates shared pointers in manager.
+   */
   void createObjects();
-  void execute();
-  void setupTimers(); 
+
+  /**
+   * Initializes timer interrupts.
+   */
+  void setupTimers();
+
+  /**
+   * Poll GPS, sample all sensors, create SensorData object, write to SDCard.
+   */
   void takeMeasurements();
+
+  /**
+   * One-by-one load measurement file and send to Rasppi.
+   */
+  void dumpMeasurements();
+
+  /**
+   * Check for any interrupts (measurement timer, bluetooth for now).
+   */
+  void execute();
 
   std::shared_ptr<Buoy> get_buoy() {return _buoy;}
   std::shared_ptr<RaspPi> get_rasppi() {return _rasppi;}
@@ -29,7 +49,7 @@ public:
   std::shared_ptr<GPSSensor> get_gpssensor() {return _gpssensor;}
   std::shared_ptr<BuoyBLE> get_buoyble() {return _buoyble;}
 
-  void startTransmission(){
+  void startTransmission() {
     this->_startTransmission = true;
   }
 

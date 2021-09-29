@@ -3,18 +3,23 @@
  * Provides funcitons and structs to initialize the TDS Sensor
  * and retrieve data
  */
-#ifndef TDSSENSOR_H
-#define TDSSENSOR_H
+#ifndef PHSENSOR_H
+#define PHSENSOR_H
 
 #include <cstdint>
 #include <vector>
 
 #include "sensor.h"
+#include "libraries/DFRobot_ESP_PH.h"
+#include <EEPROM.h>
 
-class TDSSensor : public Sensor {
+class PHSensor : public Sensor {
 public:
-    TDSSensor(uint8_t sensor_id);
-    virtual ~TDSSensor() = default;
+    PHSensor(uint8_t sensor_id);
+    virtual ~PHSensor() = default;
     virtual std::vector<Value> sampleValues() override;
+private:
+    // TODO
+    DFRobot_ESP_PH ph;
 };
 #endif

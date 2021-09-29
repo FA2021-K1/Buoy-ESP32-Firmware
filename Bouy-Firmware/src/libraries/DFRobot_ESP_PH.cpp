@@ -19,7 +19,7 @@
  */
 
 #include "Arduino.h"
-#include "sensors/DFRobot_ESP_PH.h"
+#include "libraries/DFRobot_ESP_PH.h"
 #include "EEPROM.h"
 
 #define PH_3_VOLTAGE 2010

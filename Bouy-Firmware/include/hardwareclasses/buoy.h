@@ -8,7 +8,7 @@
 #include <memory>
 #include <cstdint>
 
-#include "sensor.h"
+#include "hardwareclasses/sensor.h"
 
 /**
  * Interface for the buoy.

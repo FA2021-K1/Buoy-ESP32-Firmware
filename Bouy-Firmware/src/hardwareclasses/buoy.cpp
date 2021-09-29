@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#include "buoy.h"
+#include "hardwareclasses/buoy.h"
 
 Buoy::Buoy(uint16_t buoy_id) : _buoy_id(buoy_id) {
   Serial.printf("Buoy created with id %d\n", _buoy_id);

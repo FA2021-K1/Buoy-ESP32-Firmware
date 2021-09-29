@@ -14,10 +14,5 @@
 // SENSORS
 #define TDS_PIN 15
 
-// RASPPI UART
-#define PI_UART UART_NUM_2
-#define U2RXD 26
-#define U2TXD 27
-
 // LORA CS
 #define LORA_CS_PIN 33

@@ -12,7 +12,8 @@
 #define GPS_TX_PIN 14 // connect to TX pin on GPS module
 
 // SENSORS
-#define TDS_PIN 15
+#define TDS_PIN 15   // TDS sensor
+#define PH_PIN 35    // PH sensor
 
 // RASPPI UART
 #define PI_UART UART_NUM_2

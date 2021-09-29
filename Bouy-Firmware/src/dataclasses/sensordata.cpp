@@ -13,15 +13,18 @@
 SensorData::SensorData(uint16_t buoy_id, uint32_t measurement_id, Location_t location,
                        DateTime timestamp, std::vector<Value> values) :
                        _buoy_id(buoy_id), _measurement_id(measurement_id), 
-                       _location(location), _timestamp(timestamp), _values(values), _found(true) {}
+                       _location(location), _timestamp(timestamp), _values(values), _found(true) {
+  Serial.println("Creating SensorData object");
+}
 
 SensorData::SensorData() : _found(false) {}
 
 
 std::string SensorData::toJsonString() {
+  Serial.println("calling toJsonString()");
   // size determined using https://arduinojson.org/v6/assistant/
   DynamicJsonDocument json_doc(128 + 96 * _values.size());
-  json_doc["buoyId"] = _buoy_id;
+  json_doc["buoyID"] = _buoy_id;
   json_doc["measurementId"] = _measurement_id;
   json_doc["date"] = _timestamp.to_iso();
   json_doc["latitude"] = _location.first;
@@ -40,6 +43,7 @@ std::string SensorData::toJsonString() {
 
 
 std::string SensorData::toPiJsonString() {
+  Serial.println("calling toPiJsonString()");
   // size determined using https://arduinojson.org/v6/assistant/
   DynamicJsonDocument json_doc(128 + 96 * _values.size());
   json_doc["buoyID"] = _buoy_id;

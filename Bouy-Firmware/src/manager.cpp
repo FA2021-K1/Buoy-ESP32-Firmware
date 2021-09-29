@@ -12,6 +12,7 @@
 #include "raspicom/raspcommands.h"
 #include "manager.h"
 
+#define M_INTERVAL_SECONDS 10
 
 volatile int measurement_timer_counter;
 volatile int measurement_timer_total;
@@ -38,7 +39,7 @@ void Manager::setupTimers() {
     Serial.println("Registering interrupts");
     measurement_timer = timerBegin(0, 80, true);
     timerAttachInterrupt(measurement_timer, &measurementCallback, true);
-    timerAlarmWrite(measurement_timer, 60000000, true);
+    timerAlarmWrite(measurement_timer, M_INTERVAL_SECONDS * 1000000, true);
     timerAlarmEnable(measurement_timer);
 }
 
@@ -94,7 +95,7 @@ void Manager::dumpMeasurements() {
 
 void Manager::createObjects() {
 
-    _buoy = std::make_shared<Buoy>(1234);
+    _buoy = std::make_shared<Buoy>(1);
     _rasppi = std::make_shared<RaspPi>();
     _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
     _gpssensor = std::make_shared<GPSSensor>();

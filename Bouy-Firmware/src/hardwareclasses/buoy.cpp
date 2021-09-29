@@ -19,5 +19,10 @@ std::vector<Value> Buoy::sampleAllSensors() {
     auto sensor_values = sensor->sampleValues();
     all_values.insert(all_values.end(), sensor_values.begin(), sensor_values.end());
   }
+  Serial.println("Sampling finished");
+  for (auto value : all_values) {
+    Serial.printf("Buoy %d, Measurement %d, Value %d \n", 
+          (int) value.type_id, (int) value.sensor_id, (int) value.data);
+  }
   return all_values;
 }

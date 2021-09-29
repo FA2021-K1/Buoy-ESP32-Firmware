@@ -59,6 +59,7 @@ void SDCard::init() {
     new_file.close();
   } else {
     Serial.println("Metadata file found");
+
   }
 }
 
@@ -80,6 +81,9 @@ void SDCard::loadMetaData() {
       buoy_states[json_doc["buoyID"]] = std::pair<uint32_t, uint32_t>(json_doc["first"], 
                                                                       json_doc["last"]);
     } while (metadata_file.findUntil(",", "]"));
+    if (buoy_states.count(_buoy_id) == 0) {
+      buoy_states[_buoy_id] = std::pair<uint32_t, uint32_t>(0, 0);
+    }
     // create MetaData object
     _meta_data = std::unique_ptr<const MetaData>(new MetaData(buoy_states));
     Serial.println("Parsing finished, printing MetaData:");
@@ -157,7 +161,7 @@ SensorData SDCard::readSensorData(uint16_t buoy_id, uint32_t measurement_id) {
     // parse header of file
     // Serial.println("Now reading sensordata header");
     deserializeJson(json_doc, sensordata_file);
-    SensorData sensordata(json_doc["buoyId"], json_doc["measurementId"],
+    SensorData sensordata(json_doc["buoyID"], json_doc["measurementId"],
                           Location_t(json_doc["latitude"], json_doc["longitude"]),
                           DateTime(json_doc["date"].as<std::string>()), std::vector<Value>());
     // parse values

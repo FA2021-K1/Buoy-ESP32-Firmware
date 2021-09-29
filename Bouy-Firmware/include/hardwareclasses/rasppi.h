@@ -14,16 +14,12 @@
 class RaspPi {
     public:
         RaspPi();
-
-        // METHODS
+        
         void turnOn();
         void turnOff();
         void writeData(std::string json_string);
-
-        // GETTERS
-        RaspPiStatus get_status() {return _rasppi_status;}
-    private:
-        RaspPiStatus _rasppi_status;
+        void waitForReady();
+        
 };
 
 #endif

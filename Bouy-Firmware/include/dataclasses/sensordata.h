@@ -5,11 +5,11 @@
 #include <memory>
 #include <cstdint>
 
-#include "ArduinoJson.h"
+#include "libraries/ArduinoJson.h"
 
-#include "value.h"
-#include "buoy.h"
-#include "datetime.h"
+#include "dataclasses/value.h"
+#include "dataclasses/datetime.h"
+#include "hardwareclasses/buoy.h"
 #include "global_enums.h"
 
 /**

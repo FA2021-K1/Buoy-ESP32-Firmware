@@ -1,15 +1,16 @@
 #include <memory>
 
-#include "buoy.h"
-#include "manager.h"
-#include "rasppi.h"
-#include "sensordata.h"
-#include "value.h"
-#include "sensors/tdssensor.h"
+#include "dataclasses/value.h"
+#include "dataclasses/datetime.h"
+#include "dataclasses/sensordata.h"
+#include "hardwareclasses/tdssensor.h"
+#include "hardwareclasses/buoyble.h"
+#include "hardwareclasses/loramodule.h"
+#include "hardwareclasses/rasppi.h"
+#include "hardwareclasses/buoy.h"
 #include "raspicom/raspcommands.h"
-#include "buoyble.h"
-#include "loramodule.h"
-#include "datetime.h"
+#include "manager.h"
+
 
 volatile int measurement_timer_counter;
 volatile int measurement_timer_total;
@@ -131,8 +132,10 @@ void Manager::createObjects() {
 
 
 void Manager::execute() {
+    _rasppi->turnOn();
+    while(1);
 
-    // test for measurement timer
+    // check if measurement timer has set its flag
     if (measurement_timer_counter > 0) {
         portENTER_CRITICAL_ISR(&measurement_timer_mux);
         measurement_timer_counter--;
@@ -144,9 +147,6 @@ void Manager::execute() {
     if (measurement_timer_total > 5) {
         dumpMeasurements();
     }
-
-    // print to json string to Serial
-    // Serial.println(sensordata.toJsonString().c_str());
 
     // // wait for ping from BLE module
     // if (_buoyble->getValue_bool()) {

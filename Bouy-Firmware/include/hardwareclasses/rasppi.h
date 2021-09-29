@@ -6,7 +6,7 @@
 #ifndef RASPBERRYPI_INTERFACE_H
 #define RASPBERRYPI_INTERFACE_H
 
-#include "ArduinoJson.h"
+#include "libraries/ArduinoJson.h"
 
 #include "global_enums.h"
 #include "driver/uart.h"

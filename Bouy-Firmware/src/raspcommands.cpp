@@ -1,5 +1,5 @@
 #include <raspicom/raspcommands.h>
-#include <ArduinoJson.h>
+#include <libraries/ArduinoJson.h>
 
 RaspCommand* RaspCommand::fromJsonString(std::string json){
   DynamicJsonDocument json_doc(1024);

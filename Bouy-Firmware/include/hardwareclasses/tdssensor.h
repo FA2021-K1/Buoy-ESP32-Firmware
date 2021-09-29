@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "sensor.h"
+#include "hardwareclasses/sensor.h"
 
 class TDSSensor : public Sensor {
 public:

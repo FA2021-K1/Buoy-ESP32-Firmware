@@ -9,9 +9,9 @@
 #include <tuple>
 #include <memory>
 
-#include "metadata.h"
+#include "dataclasses/metadata.h"
+#include "dataclasses/sensordata.h"
 #include "global_enums.h"
-#include "sensordata.h"
 
 /**
  * Class that corresponds to the SDCard connected to the microcontroller.

@@ -1,6 +1,6 @@
-#include "ArduinoJson.h"
+#include "libraries/ArduinoJson.h"
 
-#include "metadata.h"
+#include "dataclasses/metadata.h"
 
 std::string MetaData::toJsonString() const {
   // size determined using https://arduinojson.org/v6/assistant/

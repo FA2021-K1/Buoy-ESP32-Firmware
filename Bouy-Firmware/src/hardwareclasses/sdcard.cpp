@@ -5,10 +5,10 @@
 #include <memory>
 #include <SD.h>
 
-#include "ArduinoJson.h"
+#include "libraries/ArduinoJson.h"
 
-#include "sdcard.h"
-#include "sensordata.h"
+#include "hardwareclasses/sdcard.h"
+#include "dataclasses/sensordata.h"
 
 
 SDCard::SDCard(uint16_t buoy_id) : _buoy_id(buoy_id) {

@@ -3,13 +3,13 @@
 
 #include <memory>
 
-#include "buoy.h"
-#include "rasppi.h"
-#include "sdcard.h"
-#include "sensors/tdssensor.h"
-#include "gpssensor.h"
-#include "buoyble.h"
-#include "loramodule.h"
+#include "hardwareclasses/buoy.h"
+#include "hardwareclasses/rasppi.h"
+#include "hardwareclasses/sdcard.h"
+#include "hardwareclasses/tdssensor.h"
+#include "hardwareclasses/gpssensor.h"
+#include "hardwareclasses/buoyble.h"
+#include "hardwareclasses/loramodule.h"
 
 /**
  * The Manager class owns all objects except for the sensor which belong to Buoy.

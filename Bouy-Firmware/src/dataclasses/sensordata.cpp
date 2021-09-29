@@ -2,13 +2,13 @@
 #include <cstdint>
 #include <vector>
 
-#include "ArduinoJson.h"
+#include "libraries/ArduinoJson.h"
 
-#include "value.h"
-#include "buoy.h"
-#include "sensordata.h"
+#include "dataclasses/value.h"
+#include "dataclasses/datetime.h"
+#include "dataclasses/sensordata.h"
+#include "hardwareclasses/buoy.h"
 #include "global_enums.h"
-#include "datetime.h"
 
 SensorData::SensorData(uint16_t buoy_id, uint32_t measurement_id, Location_t location,
                        DateTime timestamp, std::vector<Value> values) :

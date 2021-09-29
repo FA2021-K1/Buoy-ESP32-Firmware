@@ -13,6 +13,7 @@
 
 // SENSORS
 #define TDS_PIN 15
+#define PH_PIN 35
 
 // LORA CS
 #define LORA_CS_PIN 33

@@ -4,6 +4,7 @@
 #include "dataclasses/datetime.h"
 #include "dataclasses/sensordata.h"
 #include "hardwareclasses/tdssensor.h"
+#include "hardwareclasses/phsensor.h"
 #include "hardwareclasses/buoyble.h"
 #include "hardwareclasses/loramodule.h"
 #include "hardwareclasses/rasppi.h"
@@ -86,7 +87,7 @@ void Manager::dumpMeasurements() {
         }
     }
 
-    delay(5*60*1000);
+    while (_buoyble->getValue_bool());
     _rasppi->turnOff();
 }
 
@@ -100,9 +101,8 @@ void Manager::createObjects() {
     _buoyble = std::make_shared<BuoyBLE>();
     _lora = std::make_shared<LoraModule>();
 
-    // attach sensors
-    _buoy->attachSensor(std::make_shared<TDSSensor>(7));
-    _buoy->attachSensor(std::make_shared<TDSSensor>(18));
+    _buoy->attachSensor(std::make_shared<TDSSensor>(0));
+    _buoy->attachSensor(std::make_shared<PHSensor>(1));
     
     _sdcard->init();
     _gpssensor->init();

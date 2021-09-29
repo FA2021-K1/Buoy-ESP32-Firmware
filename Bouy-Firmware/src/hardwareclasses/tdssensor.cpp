@@ -13,7 +13,7 @@ TDSSensor::TDSSensor(uint8_t sensor_id) : Sensor(sensor_id, SensorType::COND) {
 }
 
 std::vector<Value> TDSSensor::sampleValues() {
-  Serial.printf("Sampling sensor %d ", _sensor_id);
+  Serial.printf("Sampling TDS sensor %d ", _sensor_id);
   double adcValue = analogRead(TDS_PIN);
   double voltageValue = (adcValue / 4096) * 2.3;
   double ppmValue = (voltageValue / 2.3) * 1000;

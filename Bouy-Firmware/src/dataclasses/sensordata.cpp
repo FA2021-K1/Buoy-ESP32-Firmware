@@ -42,7 +42,7 @@ std::string SensorData::toJsonString() {
 std::string SensorData::toPiJsonString() {
   // size determined using https://arduinojson.org/v6/assistant/
   DynamicJsonDocument json_doc(128 + 96 * _values.size());
-  json_doc["buoyId"] = _buoy_id;
+  json_doc["buoyID"] = _buoy_id;
   json_doc["measurementId"] = _measurement_id;
   json_doc["date"] = _timestamp.to_iso();
   json_doc["location"]["latitude"] = _location.first;
@@ -51,7 +51,7 @@ std::string SensorData::toPiJsonString() {
   for (unsigned int index=0; index < _values.size(); index++) {
     json_doc["measurements"][index]["sensorID"] = _values[index].sensor_id;
     json_doc["measurements"][index]["sensorType"] = _values[index].type_id;
-    json_doc["measurements"][index]["value"] = _values[index].data;
+    json_doc["measurements"][index]["measurement"] = _values[index].data;
   }
 
   std::string json_string;

@@ -37,20 +37,16 @@ void Manager::setupTimers() {
     Serial.println("Registering interrupts");
     measurement_timer = timerBegin(0, 80, true);
     timerAttachInterrupt(measurement_timer, &measurementCallback, true);
-    timerAlarmWrite(measurement_timer, 1000000, true);
+    timerAlarmWrite(measurement_timer, 60000000, true);
     timerAlarmEnable(measurement_timer);
 }
 
 
 void Manager::takeMeasurements() {
 
-    // // poll time and location from GPS module
-    // Location_t location = _gpssensor->get_location();
-    // DateTime datetime = _gpssensor->get_datetime();
-
-    // mock gps data
-    Location_t location(123, -1.2);
-    DateTime datetime(2013, 11, 11, 11, 11, 11, 99);
+    // poll time and location from GPS module
+    Location_t location = _gpssensor->get_location();
+    DateTime datetime = _gpssensor->get_datetime();
 
     // sample all sensors and create SensorData instance
     auto all_values = _buoy->sampleAllSensors();
@@ -82,30 +78,16 @@ void Manager::dumpMeasurements() {
             sensordata = _sdcard->readSensorData(buoy_id, m_idx);
             if (sensordata) {
                 Serial.printf("For buoy %u loaded measurement %u successfully \n", (uint) buoy_id, (uint) m_idx);
-
+                _rasppi->waitForReady();
+                _rasppi->writeData(sensordata.toPiJsonString());
             } else {
                 Serial.printf("For buoy %u couldn't load measurement %u\n", (uint) buoy_id, (uint) m_idx);
             }
         }
     }
 
-    delay(1000);
+    delay(5*60*1000);
     _rasppi->turnOff();
-    while (1);
-
-    
-    // SensorData test_read = _sdcard->readSensorData(_buoy->get_buoy_id(), );
-    // if (test_read) {Serial.println("FOUND FILE");}
-    // else {Serial.println("FILE NOT FOUND");}
-
-    // vTaskDelay(10000 / portTICK_PERIOD_MS);
-    // TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
-    // _rasppi->writeData(dumpCommand.toJsonString());
-
-    // // wait for ping from BLE module
-    // while (_buoyble->getValue_bool()) {
-    //     delay(1000);
-// }
 }
 
 
@@ -115,7 +97,7 @@ void Manager::createObjects() {
     _rasppi = std::make_shared<RaspPi>();
     _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
     _gpssensor = std::make_shared<GPSSensor>();
-    // _buoyble = std::make_shared<BuoyBLE>();
+    _buoyble = std::make_shared<BuoyBLE>();
     _lora = std::make_shared<LoraModule>();
 
     // attach sensors
@@ -124,7 +106,7 @@ void Manager::createObjects() {
     
     _sdcard->init();
     _gpssensor->init();
-    // _buoyble->init();
+    _buoyble->init();
 
     _sdcard->loadMetaData();
 
@@ -132,8 +114,6 @@ void Manager::createObjects() {
 
 
 void Manager::execute() {
-    _rasppi->turnOn();
-    while(1);
 
     // check if measurement timer has set its flag
     if (measurement_timer_counter > 0) {
@@ -144,17 +124,8 @@ void Manager::execute() {
         takeMeasurements();
     }
 
-    if (measurement_timer_total > 5) {
+    // wait for ping from BLE module
+    if (_buoyble->getValue_bool()) {
         dumpMeasurements();
     }
-
-    // // wait for ping from BLE module
-    // if (_buoyble->getValue_bool()) {
-    //     dumpMeasurements();
-    // }
-
-    // vTaskDelay(10000 / portTICK_PERIOD_MS);
-    // TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
-    // _rasppi->writeData(dumpCommand.toJsonString());
-    //_rasppi->turnOff()
 }

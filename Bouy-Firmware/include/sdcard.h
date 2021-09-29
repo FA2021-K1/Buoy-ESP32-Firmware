@@ -44,11 +44,12 @@ public:
      * Given a new buoyStates object update the 
      */
     void setMetaDataFirstIDs(buoyStates_t new_buoy_states);
+    
+    std::unique_ptr<const MetaData> _meta_data;
 
 private:
     const uint16_t _buoy_id;
     uint32_t _capacity;
-    std::unique_ptr<const MetaData> _meta_data;
 };
 
 #endif

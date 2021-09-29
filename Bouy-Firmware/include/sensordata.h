@@ -36,6 +36,7 @@ public:
    * @returns JSON-formatted string.
    */
   std::string toJsonString();
+  std::string toPiJsonString();
   uint16_t get_buoy_id() {return _buoy_id;}
   uint32_t get_measurement_id() {return _measurement_id;}
   void append_value(Value value) {_values.push_back(value);}

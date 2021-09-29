@@ -17,7 +17,6 @@ std::vector<Value> Buoy::sampleAllSensors() {
   Serial.println("Now sampling all sensors");
   for (auto sensor : _sensors) {
     auto sensor_values = sensor->sampleValues();
-    Serial.printf("From sensor %d sampled %f (only printing first value) \n", sensor->get_sensor_id(), sensor_values[0]);
     all_values.insert(all_values.end(), sensor_values.begin(), sensor_values.end());
   }
   return all_values;

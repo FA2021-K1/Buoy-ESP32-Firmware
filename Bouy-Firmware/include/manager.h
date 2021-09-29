@@ -9,6 +9,7 @@
 #include "sensors/tdssensor.h"
 #include "gpssensor.h"
 #include "buoyble.h"
+#include "loramodule.h"
 
 /**
  * The Manager class owns all objects except for the sensor which belong to Buoy.
@@ -48,6 +49,7 @@ public:
   std::shared_ptr<SDCard> get_sdcard() {return _sdcard;}
   std::shared_ptr<GPSSensor> get_gpssensor() {return _gpssensor;}
   std::shared_ptr<BuoyBLE> get_buoyble() {return _buoyble;}
+  std::shared_ptr<LoraModule> get_lora() {return _lora;}
 
   void startTransmission() {
     this->_startTransmission = true;
@@ -59,6 +61,7 @@ private:
   std::shared_ptr<SDCard> _sdcard;
   std::shared_ptr<GPSSensor> _gpssensor;
   std::shared_ptr<BuoyBLE> _buoyble;
+  std::shared_ptr<LoraModule> _lora;
 
   volatile bool _startTransmission;
 };

@@ -2,7 +2,6 @@
 #define LORA_PROTOCOL
 
 #include <list>
-#include <time>
 #include <memory>
 #include <functional>
 #include <lora_header/buoy_header.h>
@@ -16,10 +15,10 @@ class LoraLayer
 {
 public:
     LoraLayer(std::shared_ptr<LoraLayer> lower_layer) : _lower_layer(lower_layer) {}
-    virtual ~LoraLayer();
+    virtual ~LoraLayer() {};
     virtual void send(std::unique_ptr<struct payload> payload, std::unique_ptr<std::stack<callback_t>> callbacks) = 0;
     virtual void receive(std::unique_ptr<struct payload> payload) = 0;
-    virtual void onTimeout(uint8_t identifier);
+    virtual void onTimeout(uint8_t identifier) = 0;
 
 protected:
     std::shared_ptr<LoraLayer> _lower_layer;
@@ -40,11 +39,6 @@ public:
     static std::shared_ptr<LoraLayer> get_handler(header_id_t header_id);
     static void queue_callback(std::shared_ptr<LoraLayer>, uint8_t identifier)
     {
-        struct timeval tv_now;
-        gettimeofday(&tv_now, NULL);
-        int64_t time_us = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
-        struct packet_timeout_callbacks callback = {.time = }
-        _timeouts.push()
     }
 
 private:

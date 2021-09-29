@@ -11,7 +11,9 @@ static QueueHandle_t uart_queue;
 static volatile bool _startTransmission;
 static void UART_ISR_ROUTINE(void *pvParameters);
 
+
 void init_uart();
+
 
 RaspPi::RaspPi()
 {
@@ -19,14 +21,15 @@ RaspPi::RaspPi()
     this->_rasppi_status = RaspPiStatus::OFF;
     pinMode(PI_RELAY_PIN, OUTPUT);
     digitalWrite(PI_RELAY_PIN, LOW);
-
     init_uart();
 }
+
 
 RaspPiStatus RaspPi::get_status()
 {
     return this->_rasppi_status;
 }
+
 
 void RaspPi::writeData(std::string json_string)
 {
@@ -39,17 +42,20 @@ void RaspPi::writeData(std::string json_string)
     _startTransmission = false;
 }
 
+
 void RaspPi::turnOn()
 {
     this->_rasppi_status = RaspPiStatus::TURNING_ON;
     digitalWrite(PI_RELAY_PIN, HIGH);
 }
 
+
 void RaspPi::turnOff()
 {
     this->_rasppi_status = RaspPiStatus::TURNING_OFF;
     digitalWrite(PI_RELAY_PIN, LOW);
 }
+
 
 void init_uart()
 {
@@ -70,6 +76,7 @@ void init_uart()
 
     xTaskCreate(UART_ISR_ROUTINE, "UART_ISR_ROUTINE", 2048, NULL, 12, NULL);
 }
+
 
 static void UART_ISR_ROUTINE(void *pvParameters)
 {

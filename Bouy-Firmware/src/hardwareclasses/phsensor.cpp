@@ -10,7 +10,6 @@
 
 PHSensor::PHSensor(uint8_t sensor_id) : Sensor(sensor_id, SensorType::COND) {
   Serial.printf("Created PH Sensor with id %d\n", _sensor_id);
-  // TODO
   ph.begin();
 }
 

@@ -8,6 +8,7 @@
 #include "sensors/tdssensor.h"
 #include "raspicom/raspcommands.h"
 #include "buoyble.h"
+#include "loramodule.h"
 #include "datetime.h"
 
 volatile int measurement_timer_counter;
@@ -32,6 +33,7 @@ Manager::Manager() {
 
 
 void Manager::setupTimers() {
+    Serial.println("Registering interrupts");
     measurement_timer = timerBegin(0, 80, true);
     timerAttachInterrupt(measurement_timer, &measurementCallback, true);
     timerAlarmWrite(measurement_timer, 1000000, true);
@@ -64,9 +66,9 @@ void Manager::takeMeasurements() {
 
 void Manager::dumpMeasurements() {
     Serial.println("Initiating data dump to Rasppi with MetaData: ");
-    
-    // _rasppi->turnOn();
     Serial.println(_sdcard->_meta_data->toJsonString().c_str());
+    
+    _rasppi->turnOn();
 
     auto buoy_states = _sdcard->get_buoy_states();
 
@@ -86,6 +88,9 @@ void Manager::dumpMeasurements() {
         }
     }
 
+    delay(1000);
+    _rasppi->turnOff();
+    while (1);
 
     
     // SensorData test_read = _sdcard->readSensorData(_buoy->get_buoy_id(), );
@@ -104,18 +109,20 @@ void Manager::dumpMeasurements() {
 
 
 void Manager::createObjects() {
+
     _buoy = std::make_shared<Buoy>(1234);
-    // _rasppi = std::make_shared<RaspPi>();
+    _rasppi = std::make_shared<RaspPi>();
     _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
-    // _gpssensor = std::make_shared<GPSSensor>();
+    _gpssensor = std::make_shared<GPSSensor>();
     // _buoyble = std::make_shared<BuoyBLE>();
+    _lora = std::make_shared<LoraModule>();
 
     // attach sensors
     _buoy->attachSensor(std::make_shared<TDSSensor>(7));
     _buoy->attachSensor(std::make_shared<TDSSensor>(18));
     
     _sdcard->init();
-    // _gpssensor->init();
+    _gpssensor->init();
     // _buoyble->init();
 
     _sdcard->loadMetaData();
@@ -130,19 +137,24 @@ void Manager::execute() {
         portENTER_CRITICAL_ISR(&measurement_timer_mux);
         measurement_timer_counter--;
         portEXIT_CRITICAL_ISR(&measurement_timer_mux);
-        
         Serial.println("Measurement Interrupt called!");
         takeMeasurements();
     }
 
     if (measurement_timer_total > 5) {
         dumpMeasurements();
-        while (1);
     }
+
+    // print to json string to Serial
+    // Serial.println(sensordata.toJsonString().c_str());
 
     // // wait for ping from BLE module
     // if (_buoyble->getValue_bool()) {
     //     dumpMeasurements();
     // }
 
+    // vTaskDelay(10000 / portTICK_PERIOD_MS);
+    // TransferDumpCommand dumpCommand = TransferDumpCommand(sensordata.toJsonString());    
+    // _rasppi->writeData(dumpCommand.toJsonString());
+    //_rasppi->turnOff()
 }

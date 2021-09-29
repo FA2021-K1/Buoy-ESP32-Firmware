@@ -10,22 +10,22 @@
 #include "buoyble.h"
 #include "datetime.h"
  
+volatile int measurement_timer_counter;
 hw_timer_t* measurement_timer = NULL;
 portMUX_TYPE measurement_timer_mux = portMUX_INITIALIZER_UNLOCKED;
-Manager* manager_pointer = nullptr;
 
-
+/**
+ * Callback function for measurement timer interrupt
+ */
 void IRAM_ATTR measurementCallback() {
     portENTER_CRITICAL_ISR(&measurement_timer_mux);
-    Serial.println("Measurement Interrupt called!");
-    manager_pointer->takeMeasurements();
+    measurement_timer_counter++;
     portEXIT_CRITICAL_ISR(&measurement_timer_mux);
 }
 
 
 Manager::Manager() {
     _startTransmission = false;
-    manager_pointer = this;
 }
 
 
@@ -60,32 +60,7 @@ void Manager::takeMeasurements() {
 }
 
 
-void Manager::createObjects()
-{
-    _buoy = std::make_shared<Buoy>(1234);
-    // _rasppi = std::make_shared<RaspPi>();
-    _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
-    // _gpssensor = std::make_shared<GPSSensor>();
-    // _buoyble = std::make_shared<BuoyBLE>();
-
-    // attach sensors
-    _buoy->attachSensor(std::make_shared<TDSSensor>(7));
-    _buoy->attachSensor(std::make_shared<TDSSensor>(18));
-    
-    _sdcard->init();
-    // _gpssensor->init();
-    // _buoyble->init();
-
-    _sdcard->loadMetaData();
-
-}
-
-void Manager::execute() {
-    while (1);
-    // // wait for ping from BLE module
-    // while (!_buoyble->getValue_bool()) {
-    //     delay(1000);
-    // }
+void Manager::dumpMeasurements() {
 
     // SensorData test_read = _sdcard->readSensorData(_buoy->get_buoy_id(), );
     // if (test_read) {Serial.println("FOUND FILE");}
@@ -100,4 +75,44 @@ void Manager::execute() {
     // while (_buoyble->getValue_bool()) {
     //     delay(1000);
     // }
+}
+
+
+void Manager::createObjects() {
+    _buoy = std::make_shared<Buoy>(1234);
+    // _rasppi = std::make_shared<RaspPi>();
+    _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
+    // _gpssensor = std::make_shared<GPSSensor>();
+    _buoyble = std::make_shared<BuoyBLE>();
+
+    // attach sensors
+    _buoy->attachSensor(std::make_shared<TDSSensor>(7));
+    _buoy->attachSensor(std::make_shared<TDSSensor>(18));
+    
+    _sdcard->init();
+    // _gpssensor->init();
+    _buoyble->init();
+
+    _sdcard->loadMetaData();
+
+}
+
+
+void Manager::execute() {
+
+    // test for measurement timer
+    if (measurement_timer_counter > 0) {
+        portENTER_CRITICAL_ISR(&measurement_timer_mux);
+        measurement_timer_counter--;
+        portEXIT_CRITICAL_ISR(&measurement_timer_mux);
+        
+        Serial.println("Measurement Interrupt called!");
+        takeMeasurements();
+    }
+
+    // wait for ping from BLE module
+    if (_buoyble->getValue_bool()) {
+        dumpMeasurements();
+    }
+
 }

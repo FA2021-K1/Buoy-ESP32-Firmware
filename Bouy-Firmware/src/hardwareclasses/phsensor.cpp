@@ -14,10 +14,10 @@ PHSensor::PHSensor(uint8_t sensor_id) : Sensor(sensor_id, SensorType::PH) {
 
 std::vector<Value> PHSensor::sampleValues() {
   Serial.printf("Sampling pH sensor %d ", _sensor_id);
-  double voltageValue = analogRead(PH_PIN) / 4096 * 3300;
-  // double pHValue = 
+  double voltageValue = (double) analogRead(PH_PIN) / 4096 * 3300;
+  double pHValue = -0.0094 * voltageValue + 19.98;
   std::vector<Value> values;
-  values.emplace_back(_type_id, _sensor_id, voltageValue);
+  values.emplace_back(_type_id, _sensor_id, pHValue);
   Serial.printf("Sensor returned values %f\n", values[0].data);
   return values;
 }

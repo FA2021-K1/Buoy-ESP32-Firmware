@@ -5,11 +5,11 @@
 #include "dataclasses/sensordata.h"
 #include "hardwareclasses/tdssensor.h"
 #include "hardwareclasses/phsensor.h"
-#include "hardwareclasses/buoyble.h"
-#include "hardwareclasses/loramodule.h"
+// #include "hardwareclasses/buoyble.h"
+// #include "hardwareclasses/loramodule.h"
 #include "hardwareclasses/rasppi.h"
 #include "hardwareclasses/buoy.h"
-#include "raspicom/raspcommands.h"
+// #include "raspicom/raspcommands.h"
 #include "manager.h"
 
 #define M_INTERVAL_SECONDS 10
@@ -30,8 +30,8 @@ void IRAM_ATTR measurementCallback() {
 }
 
 
-Manager::Manager() {
-    _startTransmission = false;
+Manager::Manager() : _measurement_id(0) {
+    // _startTransmission = false;
 }
 
 
@@ -53,9 +53,11 @@ void Manager::takeMeasurements() {
     // sample all sensors and create SensorData instance
     auto all_values = _buoy->sampleAllSensors();
     auto buoy_id = _buoy->get_buoy_id();
-    auto last_id = _sdcard->get_buoy_states().at(buoy_id).second;
-    SensorData sensordata(buoy_id, last_id, location, datetime, all_values);
+    // auto last_id = _sdcard->get_buoy_states().at(buoy_id).second;
+    SensorData sensordata(buoy_id, _measurement_id, location, datetime, all_values);
     _rasppi->writeData(sensordata.toPiJsonString());
+
+    _measurement_id++;
 
     // print to json string to Serial and save to sdcard
     // Serial.println("Printing obtained SensorData: ");

@@ -4,8 +4,8 @@
  */
 #include "driver/uart.h"
 
-// RELAY
-#define PI_RELAY_PIN 13 // connect to IN pin on Relay
+// // RELAY
+// #define PI_RELAY_PIN 13 // connect to IN pin on Relay
 
 // GPS
 #define GPS_RX_PIN 12 // connect to RX pin on GPS module
@@ -15,5 +15,5 @@
 #define TDS_PIN 15
 #define PH_PIN 35
 
-// LORA CS
-#define LORA_CS_PIN 33
+// // LORA CS
+// #define LORA_CS_PIN 33

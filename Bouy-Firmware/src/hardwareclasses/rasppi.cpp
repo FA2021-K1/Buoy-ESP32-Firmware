@@ -9,8 +9,8 @@
 
 RaspPi::RaspPi() {
     Serial.println("Created RaspPi");
-    pinMode(PI_RELAY_PIN, OUTPUT);
-    digitalWrite(PI_RELAY_PIN, LOW);
+    // pinMode(PI_RELAY_PIN, OUTPUT);
+    // digitalWrite(PI_RELAY_PIN, LOW);
 }
 
 
@@ -39,13 +39,13 @@ void RaspPi::writeData(std::string json_string) {
 }
 
 
-void RaspPi::turnOn() {
-    Serial.println("Turning on Raspberry");
-    digitalWrite(PI_RELAY_PIN, HIGH);
-}
+// void RaspPi::turnOn() {
+//     Serial.println("Turning on Raspberry");
+//     digitalWrite(PI_RELAY_PIN, HIGH);
+// }
 
 
-void RaspPi::turnOff() {
-    Serial.println("Turning off Raspberry");
-    digitalWrite(PI_RELAY_PIN, LOW);
-}
+// void RaspPi::turnOff() {
+//     Serial.println("Turning off Raspberry");
+//     digitalWrite(PI_RELAY_PIN, LOW);
+// }

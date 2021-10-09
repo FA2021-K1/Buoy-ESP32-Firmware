@@ -55,61 +55,62 @@ void Manager::takeMeasurements() {
     auto buoy_id = _buoy->get_buoy_id();
     auto last_id = _sdcard->get_buoy_states().at(buoy_id).second;
     SensorData sensordata(buoy_id, last_id, location, datetime, all_values);
+    _rasppi->writeData(sensordata.toPiJsonString());
 
     // print to json string to Serial and save to sdcard
-    Serial.println("Printing obtained SensorData: ");
-    Serial.println(sensordata.toJsonString().c_str());
-    _sdcard->writeSensorData(sensordata);
+    // Serial.println("Printing obtained SensorData: ");
+    // Serial.println(sensordata.toJsonString().c_str());
+    // _sdcard->writeSensorData(sensordata);
 }
 
 
-void Manager::dumpMeasurements() {
-    Serial.println("Initiating data dump to Rasppi with MetaData: ");
-    Serial.println(_sdcard->_meta_data->toJsonString().c_str());
+// void Manager::dumpMeasurements() {
+//     Serial.println("Initiating data dump to Rasppi with MetaData: ");
+//     Serial.println(_sdcard->_meta_data->toJsonString().c_str());
     
-    _rasppi->turnOn();
+//     // _rasppi->turnOn();
 
-    auto buoy_states = _sdcard->get_buoy_states();
+//     auto buoy_states = _sdcard->get_buoy_states();
 
-    for (auto const& entry : buoy_states) {
-        auto buoy_id = entry.first;
-        auto first_last = entry.second;
-        SensorData sensordata;
+//     for (auto const& entry : buoy_states) {
+//         auto buoy_id = entry.first;
+//         auto first_last = entry.second;
+//         SensorData sensordata;
 
-        for (uint32_t m_idx = first_last.first; m_idx < first_last.second; m_idx++) {
-            sensordata = _sdcard->readSensorData(buoy_id, m_idx);
-            if (sensordata) {
-                Serial.printf("For buoy %u loaded measurement %u successfully \n", (uint) buoy_id, (uint) m_idx);
-                _rasppi->waitForReady();
-                _rasppi->writeData(sensordata.toPiJsonString());
-            } else {
-                Serial.printf("For buoy %u couldn't load measurement %u\n", (uint) buoy_id, (uint) m_idx);
-            }
-        }
-    }
+//         for (uint32_t m_idx = first_last.first; m_idx < first_last.second; m_idx++) {
+//             sensordata = _sdcard->readSensorData(buoy_id, m_idx);
+//             if (sensordata) {
+//                 Serial.printf("For buoy %u loaded measurement %u successfully \n", (uint) buoy_id, (uint) m_idx);
+//                 _rasppi->waitForReady();
+//                 _rasppi->writeData(sensordata.toPiJsonString());
+//             } else {
+//                 Serial.printf("For buoy %u couldn't load measurement %u\n", (uint) buoy_id, (uint) m_idx);
+//             }
+//         }
+//     }
 
-    while (_buoyble->getValue_bool());
-    _rasppi->turnOff();
-}
+//     // while (_buoyble->getValue_bool());
+//     // _rasppi->turnOff();
+// }
 
 
 void Manager::createObjects() {
 
     _buoy = std::make_shared<Buoy>(1);
     _rasppi = std::make_shared<RaspPi>();
-    _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
+    // _sdcard = std::make_shared<SDCard>(_buoy->get_buoy_id());
     _gpssensor = std::make_shared<GPSSensor>();
-    _buoyble = std::make_shared<BuoyBLE>();
-    _lora = std::make_shared<LoraModule>();
+    // _buoyble = std::make_shared<BuoyBLE>();
+    // _lora = std::make_shared<LoraModule>();
 
     _buoy->attachSensor(std::make_shared<TDSSensor>(0));
     _buoy->attachSensor(std::make_shared<PHSensor>(1));
     
-    _sdcard->init();
+    // _sdcard->init();
     _gpssensor->init();
-    _buoyble->init();
+    // _buoyble->init();
 
-    _sdcard->loadMetaData();
+    // _sdcard->loadMetaData();
 
 }
 
@@ -125,8 +126,8 @@ void Manager::execute() {
         takeMeasurements();
     }
 
-    // wait for ping from BLE module
-    if (_buoyble->getValue_bool()) {
-        dumpMeasurements();
-    }
+    // // wait for ping from BLE module
+    // if (_buoyble->getValue_bool()) {
+    //     dumpMeasurements();
+    // }
 }
